@@ -1,0 +1,10 @@
+.cardContainer {
+	max-height: 444px;
+	padding: 16px;
+	display: grid;
+	grid-template-rows: 1fr auto;
+
+	.description {
+		padding-top: 24px;
+	}
+}

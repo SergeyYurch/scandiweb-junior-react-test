@@ -1,0 +1,16 @@
+.container {
+	max-width: 1440px;
+	padding: 0 100px;
+	margin: 0 auto;
+}
+
+.header {
+	position: relative;
+	height: 80px;
+	display: grid;
+	grid-template-columns: 1fr 41px 1fr;
+	align-items: flex-start;
+	padding-top: 28px;
+	margin-bottom: 80px;
+
+}

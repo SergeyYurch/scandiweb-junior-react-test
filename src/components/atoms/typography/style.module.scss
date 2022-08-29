@@ -1,0 +1,219 @@
+@import '../../../styles/mixins';
+
+$text-desc-d1: 80px;
+$text-desc-h1: 58px;
+$text-desc-h2: 48px;
+$text-desc-h3: 29px;
+$text-desc-h4: 22px;
+$text-desc-p1: 16px;
+$text-desc-p2: 14px;
+$text-desc-b1: 16px;
+$text-desc-b2: 12px;
+$text-desc-s1: 16px;
+$text-desc-o1: 13px;
+$text-desc-o2: 11px;
+
+$text-mobile-d1: 40px;
+$text-mobile-h1: 34px;
+$text-mobile-h2: 28px;
+$text-mobile-h3: 20px;
+$text-mobile-p1: 14px;
+$text-mobile-p2: 13px;
+$text-mobile-s1: 15px;
+$text-mobile-o1: 12px;
+$text-mobile-o2: 10px;
+
+$light: 300;
+$semiBold: 600;
+$bold: 700;
+
+.fontTitle {
+	font-family: 'NB Akademie Std', sans-serif;
+}
+
+.fontText {
+	font-family: 'Inter Regular', sans-serif;
+}
+
+.textD1 {
+	@extend .fontTitle;
+
+	font-size: $text-mobile-d1;
+	line-height: 110%;
+	letter-spacing: -2px;
+
+	@include size-m() {
+		font-size: $text-desc-d1;
+		line-height: 100%;
+	}
+}
+
+.h1 {
+	@extend .fontTitle;
+
+	font-size: $text-mobile-h1;
+	line-height: 110%;
+	letter-spacing: -2px;
+
+	@include size-m() {
+		font-size: $text-desc-h1;
+		line-height: 109%;
+	}
+}
+
+.h2 {
+	@extend .fontTitle;
+
+	font-size: $text-mobile-h2;
+	line-height: 129%;
+	letter-spacing: -1px;
+
+	@include size-m() {
+		font-size: $text-desc-h2;
+		line-height: 109%;
+		letter-spacing: -2px;
+	}
+}
+
+.h3 {
+	@extend .fontTitle;
+
+	font-size: $text-mobile-h3;
+	line-height: 129%;
+	letter-spacing: -1px;
+
+	@include size-m() {
+		font-size: $text-desc-h3;
+		line-height: 129%;
+	}
+}
+
+.h4 {
+	@extend .fontTitle;
+
+	font-size: $text-desc-h4;
+	line-height: 129%;
+	letter-spacing: -1px;
+}
+
+.textP1 {
+	@extend .fontText;
+
+	font-size: $text-mobile-p1;
+	line-height: 130%;
+
+	@include size-m() {
+		font-size: $text-desc-p1;
+	}
+}
+
+.textP1Link {
+	@extend .fontText;
+
+	font-size: $text-mobile-p1;
+	line-height: 150%;
+
+	@include size-m() {
+		font-size: $text-desc-p1;
+	}
+}
+
+.textP2 {
+	@extend .fontText;
+
+	font-size: $text-mobile-p2;
+	line-height: 130%;
+
+	@include size-m() {
+		font-size: $text-desc-p2;
+	}
+}
+
+
+.textB1 {
+	@extend .fontTitle;
+
+	font-size: $text-desc-b1;
+	line-height: 125%;
+	letter-spacing: 1.4px;
+}
+
+.textB2 {
+	@extend .fontTitle;
+
+	font-size: $text-desc-b2;
+	line-height: 150%;
+	letter-spacing: 1.5px;
+}
+
+.textS1 {
+	@extend .fontTitle;
+
+	font-size: $text-mobile-s1;
+	line-height: 100%;
+	letter-spacing: 0.09em;
+
+	@include size-m() {
+		font-size: $text-desc-s1;
+	}
+}
+
+.textO1 {
+	@extend .fontTitle;
+
+	font-size: $text-mobile-o1;
+	line-height: 120%;
+	letter-spacing: 2px;
+
+	@include size-m() {
+		font-size: $text-desc-o1;
+	}
+}
+
+.textO2 {
+	@extend .fontTitle;
+
+	font-size: $text-mobile-o2;
+	line-height: 100%;
+	letter-spacing: 0.09em;
+
+	@include size-m() {
+		font-size: $text-desc-o2;
+	}
+}
+
+.light {
+	font-weight: $light;
+}
+
+.semiBold {
+	font-weight: $semiBold;
+}
+
+.bold {
+	font-weight: $bold;
+}
+
+.upper {
+	text-transform: uppercase;
+}
+
+.capitalize {
+	text-transform: capitalize;
+}
+
+.breakSpaces {
+	white-space: break-spaces;
+}
+
+/* stylelint-disable */
+.textOverflow {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+
+/* stylelint-enable */

@@ -1,0 +1,27 @@
+.wrapper ul {
+	margin: 0;
+
+	li {
+		height: 52px;
+		display: inline-block;
+		padding-left: 16px;
+		padding-right: 16px;
+		font-family: 'Raleway-Regular';
+		font-weight: 400;
+
+		a {
+			font-family: inherit;
+			text-transform: uppercase;
+			font-size: 1rem;
+		}
+
+	}
+
+	.active {
+		font-family: 'Raleway-SemiBold';
+		font-weight: 600;
+		border-bottom: 2px solid var(--color-green);
+		color: var(--color-green)
+	}
+
+}

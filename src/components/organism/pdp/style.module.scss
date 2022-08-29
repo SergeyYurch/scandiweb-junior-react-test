@@ -1,0 +1,87 @@
+@import '/src/styles/mixins';
+
+.containerPDP {
+	display: grid;
+	grid-template-columns: 80px auto 80px;
+	grid-template-rows: 1fr;
+	gap: 40px;
+
+	@include size-xl() {
+		gap: 20px;
+		grid-template-columns: 80px auto;
+	}
+
+	img {
+		width: 100%;
+		max-height: 330px;
+		object-fit: cover;
+		margin: 0 auto;
+	}
+
+	.gallery {
+		display: grid;
+		grid-template-columns: 80px;
+		grid-template-rows: repeat(auto-fill, 80px);
+		gap: 40px;
+
+	}
+
+	.productDetailCard {
+		display: grid;
+		grid-template-columns: minmax(auto, 610px) minmax(auto, 292px);
+		gap: 100px;
+
+		@include size-xl() {
+			gap: 50px;
+			grid-template-columns: 2fr 1fr
+		}
+
+		@include size-md() {
+			grid-template-columns: 1fr;
+		}
+
+		.productDetails {
+			display: grid;
+			grid-template-columns: 1fr;
+
+			.name {
+				margin-bottom: 43px;
+			}
+
+			.syze {
+				margin-bottom: 24px;
+			}
+
+			.color {
+				margin-bottom: 38px;
+			}
+
+			.price {
+				margin-bottom: 20px;
+			}
+
+
+			.addToCartBtn {
+				width: 292px;
+				height: 52px;
+				margin-bottom: 40px;
+			}
+
+
+			.productDetail {
+				.nameSection {
+					font-size: 18px;
+				}
+			}
+		}
+	}
+
+
+	.description {
+		font-family: 'Roboto-Regular';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+	}
+
+}

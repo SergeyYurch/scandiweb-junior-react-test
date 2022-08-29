@@ -1,0 +1,68 @@
+@import '/src/styles/mixins';
+
+.cartContainer {
+	width: 100%;
+
+	.headerCart {
+		font-size: 2.5rem;
+		font-family: 'Raleway-Bold';
+		font-weight: 700;
+		line-height: 68px;
+		letter-spacing: 0px;
+		text-align: left;
+		border-bottom: 1px solid var(--color-cart-border);
+	}
+
+	.productList {
+		width: 100%;
+		margin-bottom: 32px;
+	}
+
+	.total {
+		margin-bottom: 20px;
+	}
+
+	.btnOrder {
+		height: 43px;
+	}
+
+	& .control {
+		display: grid;
+		grid-template-columns: 279px 1fr 1fr;
+	}
+
+}
+
+.modal {
+	background-color: var(--color-white);
+	z-index: 5;
+	position: absolute;
+	top: 78px;
+	right: 72px;
+	width: 325px;
+	max-height: 677px;
+	padding: 32px 16px;
+
+	.productList {
+		max-height: 677px;
+		overflow: auto;
+	}
+
+	.headerCart {
+		font-family: 'Raleway-Bold';
+		font-weight: 700;
+		font-size: 1rem;
+		border-bottom: none;
+
+		span {
+			font-family: 'Raleway-Medium';
+			font-weight: 500;
+		}
+	}
+
+	.control {
+		grid-template-columns: 140px 140px 140px;
+		justify-content: left;
+		gap: 12px
+	}
+}

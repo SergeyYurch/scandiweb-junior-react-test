@@ -1,0 +1,16 @@
+.currencyButton {
+	height: 29px;
+	width: 38px;
+	display: grid;
+	grid-template-columns: 32px 6px;
+	align-items: center;
+	justify-items: center;
+	background: transparent;
+
+	span {
+		font-family: 'Raleway-Medium';
+		font-size: 1.125rem;
+		letter-spacing: 0em;
+		text-align: left;
+	}
+}
