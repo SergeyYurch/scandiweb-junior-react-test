@@ -23,6 +23,9 @@
 			grid-template-columns: repeat(2, minmax(200px, 386px));
 		}
 
+		&:focus {
+			border: 1px solid black
+		}
 	}
 
 }

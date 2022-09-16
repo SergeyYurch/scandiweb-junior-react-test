@@ -1,4 +1,6 @@
 .priceContainer {
+	display: grid;
+	justify-content: left;
 	color: var(--color-dark);
 	font-family: 'Raleway-Medium';
 	font-weight: 500;
@@ -32,3 +34,5 @@
 
 
 }
+
+.modal {}

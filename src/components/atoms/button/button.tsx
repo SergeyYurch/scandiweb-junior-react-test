@@ -20,7 +20,6 @@ export interface ButtonPropsI {
 	variant?: ButtonTypeE;
 	className?: string;
 	disabled?: boolean;
-	color?: string;
 	onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 
 }
@@ -35,20 +34,20 @@ class Button extends Component<ButtonPropsI, StateI> {
 			variant = 'green',
 			className,
 			disabled,
-			color,
 			onClick,
 			...props } = this.props;
-
 		return (
 			<button
-				style={{ backgroundColor: color }}
-				disabled
+				disabled={disabled}
 				className={cn(
 					styles.btn,
 					className,
 					{
-						[styles[variant]]: variant
-					})}
+						[styles.dissabledSt]: disabled,
+						[styles[variant]]: variant,
+					})
+				}
+				onClick={onClick}
 				{...props}
 			>
 				{children}

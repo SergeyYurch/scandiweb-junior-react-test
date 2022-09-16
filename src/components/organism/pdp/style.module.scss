@@ -1,9 +1,11 @@
 @import '/src/styles/mixins';
 
 .containerPDP {
+
+	width: 100%;
 	display: grid;
 	grid-template-columns: 80px auto 80px;
-	grid-template-rows: 1fr;
+	grid-template-rows: minmax(0, 80vh);
 	gap: 40px;
 
 	@include size-xl() {
@@ -13,22 +15,26 @@
 
 	img {
 		width: 100%;
-		max-height: 330px;
-		object-fit: cover;
+		object-fit: scale-down;
 		margin: 0 auto;
 	}
 
 	.gallery {
 		display: grid;
-		grid-template-columns: 80px;
-		grid-template-rows: repeat(auto-fill, 80px);
-		gap: 40px;
+		grid-template-columns: 77px;
+		grid-template-rows: repeat(auto-fill, 77px);
+		gap: 32px;
+		overflow: auto;
 
+		.galleryItem {
+			margin: 2px;
+		}
 	}
 
 	.productDetailCard {
 		display: grid;
-		grid-template-columns: minmax(auto, 610px) minmax(auto, 292px);
+		grid-template-columns: 1fr minmax(auto, 292px);
+		align-items: flex-start;
 		gap: 100px;
 
 		@include size-xl() {
@@ -57,6 +63,7 @@
 			}
 
 			.price {
+				margin-top: 36px;
 				margin-bottom: 20px;
 			}
 
@@ -65,6 +72,13 @@
 				width: 292px;
 				height: 52px;
 				margin-bottom: 40px;
+			}
+
+			.description {
+				font-family: 'Roboto-Regular';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 16px;
 			}
 
 
@@ -77,11 +91,6 @@
 	}
 
 
-	.description {
-		font-family: 'Roboto-Regular';
-		font-style: normal;
-		font-weight: 400;
-		font-size: 16px;
-	}
+
 
 }

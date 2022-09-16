@@ -10,6 +10,8 @@ interface PropsI {
 	variant?: 'small' | 'big' | 'horizontal';
 	disable?: boolean;
 	modal?: boolean;
+	name?: string;
+	brand?: string;
 }
 
 interface StateI { }
@@ -31,10 +33,10 @@ class NameFrame extends Component<PropsI, StateI> {
 						[styles['disable']]: disable
 					})}>
 				<h3 className={styles.brandProduct}>
-					Apollo
+					{this.props.brand}
 				</h3 >
 				<p className={styles.nameProduct}>
-					Running shot
+					{this.props.name}
 				</p>
 			</div>
 		);

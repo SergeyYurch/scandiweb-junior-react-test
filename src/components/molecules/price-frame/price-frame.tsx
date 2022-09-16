@@ -5,12 +5,12 @@ import cn from 'classnames';
 import styles from './style.module.scss'
 
 interface PropsI {
-	children?: string;
 	className?: string;
 	showLabel?: boolean;
 	bold?: boolean;
 	size?: "small" | 'middle' | 'large';
 	disable?: boolean;
+	price: string
 }
 
 interface StateI { }
@@ -18,7 +18,6 @@ interface StateI { }
 class PriceFrame extends Component<PropsI, StateI> {
 	render() {
 		const {
-			children,
 			className,
 			showLabel,
 			bold,
@@ -36,7 +35,6 @@ class PriceFrame extends Component<PropsI, StateI> {
 				<p className={
 					cn(
 						styles.priceValue,
-						className,
 						{
 							[styles[size]]: size,
 							[styles['bold']]: bold,
@@ -44,7 +42,7 @@ class PriceFrame extends Component<PropsI, StateI> {
 						}
 					)
 				}>
-					{children}
+					{this.props.price}
 				</p>
 			</div >
 		);

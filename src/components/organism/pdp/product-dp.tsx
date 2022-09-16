@@ -1,55 +1,74 @@
-import React, { Component, ReactNode } from 'react';
-import Button from '../../atoms/button/button';
-import ColorFrame from '../../molecules/color-frame/color-frame';
-import PriceFrame from '../../molecules/price-frame/price-frame';
-import NameFrame from '../../molecules/name-frame/name-frame';
-import SizeFrame from '../../molecules/size-frame/size-frame';
+import { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import dompurify from 'dompurify';
 
-import styles from './style.module.scss'
+import { RootState } from '../../../store';
+import { getProduct } from '../../../store/dataSlice'
 
+import Spinner from '../../molecules/spinner/spinner';
+import ErrorMessageIcon from '../../molecules/error-message/error-message';
+import ProductDPView from './product-dp-view';
+import { addProductToCart, updateProductInCart } from '../../../store/cartSlice';
+import { Attribute } from './../../../store/data.types';
+import { withAddToCart } from '../../../hoc/with-add-to-cart';
 
-interface PropsI {
-	children?: ReactNode | string;
-}
+const mapState = (state: RootState) => ({
+	thisProduct: state.data.product,
+	statusFetchingProduct: state.data.statusFetchingProduct,
+	currency: state.status.currency,
+})
+const connector = connect(mapState, { getProduct, addProductToCart, updateProductInCart })
 
-interface StateI { }
+class ProductDP extends Component<any, any> {
+	state = {
+		activeImg: 'img',
+		attributes: {}
+	}
 
-class ProductDP extends Component<PropsI, StateI> {
+	componentDidMount = (): void => {
+		const id = this.props.match.params.id
+		this.props.getProduct(id)
+	}
+
+	onChangeImg = (activeImg: string) => {
+		this.setState({ activeImg })
+	}
+
+	onSelectAttr = (attr: { [id: string]: Attribute }): void => {
+		this.setState((state) => {
+			return { attributes: { ...state.attributes, ...attr } }
+		})
+	}
+
+	toCleanDescription = (description: string): { __html: string } => {
+		const cleanDescriprion = dompurify.sanitize(description, { FORCE_BODY: true })
+		return ({ __html: cleanDescriprion })
+	}
+
+	onAddToCart = () => {
+		this.props.addToCart(this.state.attributes, this.props.thisProduct.id)
+	}
+
 	render() {
-
+		const { statusFetchingProduct, thisProduct, currency } = this.props
+		const cleanDescriprion = this.toCleanDescription(thisProduct.description)
 		return (
-			<div className={styles.containerPDP}>
-
-				<div className={styles.gallery}>
-					<div className={styles.galleryItem}>
-						<img src="https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087" alt="product" />
-					</div>
-					<div className={styles.galleryItem}>
-						<img src="https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087" alt="product" />
-					</div>
-					<div className={styles.galleryItem}>
-						<img src="https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087" alt="product" />
-					</div>
-				</div>
-
-				<div className={styles.productDetailCard} >
-					<figure className={styles.productImg}>
-						<img src="https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087" alt="product" />
-					</figure>
-					<div className={styles.productDetails}>
-						<NameFrame className={styles.name} variant='big' />
-						<SizeFrame className={styles.syze} />
-						<ColorFrame className={styles.color} />
-						<PriceFrame showLabel bold className={styles.price} />
-						<Button className={styles.addToCartBtn}>ADD TO CART</Button>
-						<p className={styles.description}>
-							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem eligendi illo facilis cumque, et rerum sit, neque nemo aliquid quisquam at rem? Inventore ut nostrum minus impedit eos, tempora odit.
-						</p>
-					</div>
-				</div>
-
-			</div >
+			<>
+				{statusFetchingProduct === 'loading' && <Spinner />}
+				{statusFetchingProduct === 'error' && <ErrorMessageIcon />}
+				{statusFetchingProduct === 'idle' &&
+					< ProductDPView
+						product={thisProduct}
+						currency={currency}
+						cleanDescriprion={cleanDescriprion}
+						activeImg={this.state.activeImg}
+						onAddToCart={this.onAddToCart}
+						onSelectAttr={this.onSelectAttr}
+						onChangeImg={this.onChangeImg}
+					/>}
+			</>
 		);
 	}
 }
-export default ProductDP;
+export default connector(withRouter(withAddToCart(ProductDP)));

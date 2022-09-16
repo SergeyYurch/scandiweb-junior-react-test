@@ -21,6 +21,18 @@
 	color: #FFFFFF;
 }
 
+.dissabledSt {
+	background: #acacac;
+
+}
+
+.btn.dissabledSt {
+	&:active {
+		box-shadow: none
+	}
+}
+
+
 .size_type {}
 
 .square {}

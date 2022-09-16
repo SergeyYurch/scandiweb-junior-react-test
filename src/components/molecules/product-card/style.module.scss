@@ -1,10 +1,36 @@
-.cardContainer {
-	max-height: 444px;
-	padding: 16px;
-	display: grid;
-	grid-template-rows: 1fr auto;
+.container {
+	position: relative;
 
-	.description {
-		padding-top: 24px;
+	.cardContent {
+		position: relative;
+		background-color: transparent;
+		height: 444px;
+		padding: 16px;
+		display: grid;
+		align-content: end;
+		// grid-template-rows: 338px 58px;
+
+		.description {
+			padding-top: 24px;
+		}
+
+		.link {
+
+			// height: 100%;
+
+		}
+
+
+
+	}
+
+	.addCartBtn {
+		z-index: 10;
+		position: absolute;
+		right: 34px;
+		bottom: 72px;
+		background: none;
+		width: 52px;
+		height: 52px;
 	}
 }

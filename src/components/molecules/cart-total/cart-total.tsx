@@ -9,6 +9,10 @@ import classNames from 'classnames';
 interface PropsI {
 	className?: string;
 	modal?: boolean;
+	quantity: number;
+	total: number;
+	currencySymbol: string;
+
 }
 
 interface StateI { }
@@ -18,7 +22,14 @@ class CartTotal extends Component<PropsI, StateI> {
 		const {
 			className,
 			modal,
+			quantity,
+			total,
+			currencySymbol
 		} = this.props;
+
+		const totalStr = currencySymbol + total.toFixed(2)
+		const tax = currencySymbol + (total * 0.21).toFixed(2)
+
 		return (
 			<div className={
 				cn(
@@ -33,17 +44,17 @@ class CartTotal extends Component<PropsI, StateI> {
 					<div>
 						<div className={styles.item}>
 							<p className={styles.label}>Tax 21%:</p>
-							<PriceFrame className={styles.value}>$42</PriceFrame>
+							<PriceFrame className={styles.value} price={tax} />
 						</div>
 						<div className={styles.item}>
 							<p className={styles.label}>Quantity:</p>
-							<p className={styles.value}>3</p>
+							<p className={styles.value}>{quantity}</p>
 						</div>
 					</div>
 				}
 				<div className={styles.item}>
 					<p className={styles.total}>Total:</p>
-					<PriceFrame className={styles.value}>$200</PriceFrame>
+					<PriceFrame className={styles.value} price={totalStr} size={modal ? 'small' : 'large'} />
 				</div>
 			</div >
 		);

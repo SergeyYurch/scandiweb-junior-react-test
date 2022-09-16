@@ -23,6 +23,7 @@
 	grid-template-columns: auto 1fr;
 	gap: 1ch;
 	justify-items: start;
+	justify-content: left;
 
 	.nameProduct,
 	.brandProduct {
@@ -30,6 +31,7 @@
 		line-height: 160%;
 		font-weight: 300;
 		font-size: 1.125rem;
+		;
 	}
 }
 

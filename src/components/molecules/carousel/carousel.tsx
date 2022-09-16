@@ -24,19 +24,43 @@ export interface ButtonPropsI {
 	className?: string;
 	disabled?: boolean;
 	onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+	gallery: string[];
 
 }
 
 interface StateI { }
 
-class Carousel extends Component<ButtonPropsI, StateI> {
+class Carousel extends Component<any, any> {
+	state = {
+		currentImg: 0
+	}
+	changeImg = (direction: 'right' | 'left') => {
+		const lengthGallery = this.props.gallery.length
+		if (direction === 'right') {
+			this.setState((state) => {
+				let newImgIndex = this.state.currentImg + 1;
+				if (newImgIndex === lengthGallery) newImgIndex = 0;
+				return { currentImg: newImgIndex }
+			})
+		}
 
+		if (direction === 'left') {
+			this.setState((state) => {
+				let newImgIndex = this.state.currentImg - 1;
+				if (newImgIndex < 0) newImgIndex = lengthGallery - 1;
+				return { currentImg: newImgIndex }
+			})
+		}
+
+
+	}
 	render() {
 		const {
 			modal,
-			variant = 'green',
 			className,
+			gallery,
 			onClick,
+			name,
 			...props } = this.props;
 
 		return (
@@ -44,20 +68,18 @@ class Carousel extends Component<ButtonPropsI, StateI> {
 				className={cn(
 					styles.carousel,
 					className,
-					{
-						[styles[variant]]: variant
-					})}
+				)}
 				{...props}
 			>
 				<figure className={styles.imgContainer}>
-					<img src="https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087" alt="product" />
+					<img src={gallery[this.state.currentImg]} alt="{name}" />
 				</figure>
-				{!modal &&
+				{!modal && gallery.length > 1 &&
 					<div className={styles.control}>
-						<Button className={styles.btn} variant='black' >
+						<Button className={styles.btn} onClick={() => this.changeImg('left')} variant='black' >
 							<ArrowLeft />
 						</Button>
-						<Button className={styles.btn} variant='black' >
+						<Button className={styles.btn} onClick={() => this.changeImg('right')} variant='black' >
 							<ArrowRight />
 						</Button>
 					</div>

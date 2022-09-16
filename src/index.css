@@ -64,6 +64,7 @@
 
 
 :root{
+	--color-background: #fff;
 	--color-white: #fff;
 	--color-black: #000;
 	--color-dark: #1D1F22;
@@ -102,19 +103,21 @@
 
 html,
 body {
-	max-width: 100vw;
-	min-height: 100vw;
+	/* max-width: 100vw;
+	max-height: 100vh; */
 	scroll-behavior: smooth;
 	padding: 0;
 	margin: 0;
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
+	overflow-x: hidden;
 }
 
 a{
 	text-decoration: none;
   	color: inherit;
 }
+
 
 ul, li {
 	list-style: none;
@@ -123,12 +126,16 @@ ul, li {
 
 button {
   	cursor: pointer;
+	background: none;
 }
+
 
 * {
 	vertical-align: baseline;
 	box-sizing: border-box;
 	border: none;
 	margin: 0;
+	padding:0;
 
+	
 }
