@@ -38,35 +38,13 @@ export interface Price {
 	currency: Currency,
 	amount: number
 }
-export interface Cart {
-
+export interface CartProduct {
+	id: string;
+	count: number;
+	product: Product;
+	selectedAttr?: SelectedAttr;
 }
 
-
-	// product: {
-	// 	id: '',
-	// 	inCart: false,
-	// 	name: '',
-	// 	inStock: true,
-	// 	gallery: [],
-	// 	description: '',
-	// 	category: '',
-	// 	attributes: [{
-	// 		id: '',
-	// 		name: '',
-	// 		type: '',
-	// 		items: [{
-	// 			displayValue: '',
-	// 			value: '',
-	// 			id: ''
-	// 		}]
-	// 	}],
-	// 	prices: [{
-	// 		currency: {
-	// 			label: '',
-	// 			symbol: ''
-	// 		},
-	// 		amount: 0
-	// 	}],
-	// 	brand: ''
-	// },
+export interface SelectedAttr {
+	[name: string]: Attribute
+}

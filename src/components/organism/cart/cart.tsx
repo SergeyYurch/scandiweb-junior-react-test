@@ -1,27 +1,25 @@
-import { Component, ReactNode } from 'react';
-import cn from 'classnames';
+import { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import CartProductCard from '../../molecules/cart-product-card/cart-product-card';
-
-import styles from './style.module.scss'
 import CartTotal from '../../molecules/cart-total/cart-total';
 import Button from '../../atoms/button/button';
-import { RootState } from '../../../store';
-import { addProductToCart, updateProductInCart, deleteProductFromCart, clearCart } from '../../../store/cartSlice';
-import { statusSetCartView, statusSetCartShow } from '../../../store/statusSlice';
-import { generateId } from '../../../helpers/helpers';
 
+import { RootState } from '../../../store';
+import { updateProductInCart, deleteProductFromCart, clearCart } from '../../../store/cartSlice';
+import { statusSetCartView, statusSetCartShow } from '../../../store/statusSlice';
+import { Price } from '../../../types/data.types';
+import { getPrice } from '../../../helpers/helpers';
+
+import styles from './style.module.scss'
+import ErrorBoundary from '../../error-boundary/error-boundary';
 
 const mapState = (state: RootState) => ({
 	cartState: state.cart,
 	currency: state.status.currency,
-	cartIsModal: state.status.cartIsModal
 })
 
 const connector = connect(mapState, {
-	addProductToCart,
 	updateProductInCart,
 	deleteProductFromCart,
 	clearCart,
@@ -30,68 +28,53 @@ const connector = connect(mapState, {
 })
 
 type PropsFromRedux = ConnectedProps<typeof connector>
+type OwnProps = { modal?: boolean }
+type Props = PropsFromRedux & OwnProps
 
-interface Props extends PropsFromRedux {
-	modal?: boolean;
-}
+class Cart extends Component<Props> {
 
-const getPrice = (product, currency) => {
-	return product.prices.find((p) => p.currency.label === currency.label)
-}
-
-
-
-
-
-class Cart extends Component<any, any> {
-
-	componentDidUpdate = (prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any): void => {
+	componentDidUpdate = (): void => {
 		if (this.props.cartState.quantity === 0) this.props.statusSetCartShow(false);
 	}
 
-	onUpdateProductCount = (id, oldCount, value) => {
+	onUpdateProductCount = (id: string, oldCount: number, value: number): void => {
 		if ((oldCount + value) < 1) {
 			this.props.deleteProductFromCart(id)
-			this.props.saveCart();
 		} else {
 			this.props.updateProductInCart({ id, value })
-			this.props.saveCart();
-
 		}
 	}
 
-
-	onOrder = () => {
+	onOrder = (): void => {
 		alert('Thanks for shopping in our store')
-		this.props.clearCart('d')
+		this.props.clearCart()
 	}
 
-	onViewBag = () => {
+	onViewBag = (): void => {
 		this.props.statusSetCartView(false)
 	}
 
-	onCheckOut = () => {
+	onCheckOut = (): void => {
 		this.props.statusSetCartShow(false)
 	}
 
-
-	render() {
+	render(): JSX.Element {
 		const { modal, cartState, currency } = this.props;
-		let { products, quantity = 0 } = cartState
-		let total = 0;
-		let detailFrame = []
+		const { products, quantity = 0 } = cartState
+		let total: number = 0;
+		let detailFrame: JSX.Element[] = [];
 		if (products && products.length > 0) {
-			products.forEach((prod) => {
-				const price = getPrice(prod.product, currency)
-				total += prod.count * price.amount;
+			products.forEach((cartProduct) => {
+				const price: Price = getPrice(cartProduct.product, currency)
+				total += cartProduct.count * price.amount;
 			})
 		}
 
 		if (products) detailFrame = products.map((cartProduct) => {
-			const price = getPrice(cartProduct.product, currency)
+			const price: Price = getPrice(cartProduct.product, currency)
 			return (
 				<CartProductCard
-					key={generateId()}
+					key={cartProduct.id}
 					cartProduct={cartProduct}
 					price={price}
 					onUpdateProductCount={this.onUpdateProductCount}
@@ -101,33 +84,35 @@ class Cart extends Component<any, any> {
 			)
 		})
 
-
 		return (
-			<div className={modal ? styles.cartOverlayModal : styles.cartOverlay} onClick={this.props.closeModal} >
+			<div className={modal ? styles.cartOverlayModal : styles.cartOverlay} >
 				<div className={styles.cartWrapper}>
 					<div
 						className={modal ? styles.modalContainer : styles.cartContainer}
 						onClick={(e) => { e.stopPropagation() }}
 					>
-						<div className={styles.headerCart}>
-							{modal && <h2 className={styles.headerCart}>My Bag, <span>{quantity} items</span></h2>}
-							{!modal && <h2 className={styles.headerCart}>Cart</h2>}
-						</div>
-						{products &&
-							<div className={styles.productList}>
+						<ErrorBoundary>
+							<>
+								<div className={styles.headerCart}>
+									{modal && <h2 className={styles.headerCart}>My Bag, <span>{quantity} items</span></h2>}
+									{!modal && <h2 className={styles.headerCart}>Cart</h2>}
+								</div>
 
-								{detailFrame}
-							</div>
-						}
+								{products &&
+									<div className={styles.productList}>
+										{detailFrame}
+									</div>
+								}
 
-						<CartTotal modal={modal} quantity={quantity} currencySymbol={currency.symbol} total={total} className={styles.total} />
+								<CartTotal modal={modal} quantity={quantity} currencySymbol={currency.symbol} total={total} className={styles.total} />
 
-						<div className={styles.control}>
-							{!modal && <Button className={styles.btn} onClick={this.onOrder}>ORDER</Button>}
-							{modal && <Button className={styles.btn} onClick={this.onViewBag}>VIEW BAG</Button>}
-							{modal && <Button className={styles.btn} onClick={this.onCheckOut}>CHEK OUT</Button>}
-						</div>
-
+								<div className={styles.control}>
+									{!modal && <Button className={styles.btn} onClick={this.onOrder}>ORDER</Button>}
+									{modal && <Button className={styles.btn} onClick={this.onViewBag}>VIEW BAG</Button>}
+									{modal && <Button className={styles.btn} onClick={this.onCheckOut}>CHEK OUT</Button>}
+								</div>
+							</>
+						</ErrorBoundary>
 					</div>
 				</div>
 			</div>

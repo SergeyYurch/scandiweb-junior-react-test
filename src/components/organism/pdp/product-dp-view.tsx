@@ -1,55 +1,54 @@
 import { Component } from 'react';
 
-import { generateId } from './../../../helpers/helpers';
-import { Attribute, AttributeSet } from '../../../store/data.types';
-
 import Button from '../../atoms/button/button';
 import AttributeFrame from '../../molecules/attribute-frame/attribute-frame';
 import PriceFrame from '../../molecules/price-frame/price-frame';
 import NameFrame from '../../molecules/name-frame/name-frame';
 import ProductImg from '../../atoms/product-img/product-img';
 
-import styles from './style.module.scss'
+import { Currency, AttributeSet, Price, Product, SelectedAttr } from '../../../types/data.types';
 
-interface StateI {
+import styles from './style.module.scss'
+import { createPriceRecord } from '../../../helpers/helpers';
+
+type OwnProps = {
+	product: Product;
+	currency: Currency;
+	cleanDescriprion: { __html: string };
 	activeImg: string;
-	sizeVolume: string;
-	colorVolume: string;
-	attributes: { id: string, attribute: Attribute }[];
+	onAddToCart: () => void;
+	onSelectAttr: (attr: SelectedAttr) => void;
+	onChangeImg: (activeImg: string) => void;
 }
 
+class ProductDPView extends Component<OwnProps> {
 
-
-
-class ProductDPView extends Component<any, any> {
-
-	componentDidMount = () => {
-		if (this.props.product && this.props.product.length !== 0) {
+	componentDidMount = (): void => {
+		if (this.props.product) {
 			const { gallery } = this.props.product
 			this.onChangeImg(gallery[0])
 		}
 	}
 
-	onChangeImg = (activeImg: string) => {
+	onChangeImg = (activeImg: string): void => {
 		this.props.onChangeImg(activeImg)
 	}
 
 	render() {
-		const { product, currency, activeImg, cleanDescriprion } = this.props
+		const { product, currency, activeImg, cleanDescriprion, onSelectAttr } = this.props
 		const { name, inStock, gallery, attributes, prices, brand } = product
-		let price = '$100';
+		let price: string = 'No price';
 		let gallerySet: JSX.Element[] = [];
 		let attributesSet: JSX.Element[] = [];
 
 		if (prices && currency) {
-			const priceCurr = prices.find((p) => p.currency.label === currency.label)
-			price = priceCurr.currency.symbol + priceCurr.amount
+			price = createPriceRecord(prices, currency)
 		}
 
 		if (attributes && attributes.length > 0) {
-			attributesSet = attributes.map((attr: AttributeSet, i: number) => {
+			attributesSet = attributes.map((attr: AttributeSet) => {
 				return (
-					<AttributeFrame key={i} onSelectAttr={this.props.onSelectAttr} attributes={attr} />
+					<AttributeFrame key={attr.id} onSelectAttr={onSelectAttr} attributes={attr} />
 				)
 			})
 		}
@@ -57,7 +56,7 @@ class ProductDPView extends Component<any, any> {
 		if (gallery) {
 			gallerySet = gallery.map((el: string, i: number): JSX.Element => {
 				return (
-					<button key={i} className={styles.galleryItem} onClick={() => this.props.onChangeImg(el)} >
+					<button key={i} className={styles.galleryItem} onClick={() => this.onChangeImg(el)} >
 						<ProductImg src={el} alt={name} />
 					</button>
 				)
@@ -72,7 +71,7 @@ class ProductDPView extends Component<any, any> {
 				<div className={styles.productDetailCard} >
 					{gallery && (
 						<figure className={styles.productImg}>
-							<img src={activeImg} alt="name" />
+							<img src={activeImg} alt={name} />
 						</figure>
 					)}
 					<div className={styles.productDetails}>

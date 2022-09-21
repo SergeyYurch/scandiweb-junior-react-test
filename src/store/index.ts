@@ -9,7 +9,6 @@ const store = configureStore({
 		status: statusReducer,
 		data: dataReducer,
 		cart: cartReducer
-
 	},
 })
 export default store;

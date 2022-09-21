@@ -4,21 +4,17 @@ import cn from 'classnames';
 
 import styles from './style.module.scss'
 import PriceFrame from '../price-frame/price-frame';
-import classNames from 'classnames';
 
-interface PropsI {
+type OwnProps = {
 	className?: string;
 	modal?: boolean;
 	quantity: number;
 	total: number;
 	currencySymbol: string;
-
 }
 
-interface StateI { }
-
-class CartTotal extends Component<PropsI, StateI> {
-	render() {
+class CartTotal extends Component<OwnProps> {
+	render(): JSX.Element {
 		const {
 			className,
 			modal,
@@ -27,8 +23,8 @@ class CartTotal extends Component<PropsI, StateI> {
 			currencySymbol
 		} = this.props;
 
-		const totalStr = currencySymbol + total.toFixed(2)
-		const tax = currencySymbol + (total * 0.21).toFixed(2)
+		const totalStr: string = currencySymbol + total.toFixed(2)
+		const tax: string = currencySymbol + (total * 0.21).toFixed(2)
 
 		return (
 			<div className={

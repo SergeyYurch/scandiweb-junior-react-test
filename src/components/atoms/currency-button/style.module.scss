@@ -8,6 +8,15 @@
 	justify-items: center;
 	background: transparent;
 
+	.svg {
+		transition: all 0.3s;
+	}
+
+	.currencyIsShow {
+		transition: all 0.3s;
+		transform: rotate(0.5turn);
+	}
+
 	span {
 		font-family: 'Raleway-Medium';
 		font-size: 1.125rem;

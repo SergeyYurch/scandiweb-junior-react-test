@@ -1,32 +1,31 @@
-import React, { Component, ReactNode } from 'react';
+import { Component } from 'react';
 
 import cn from 'classnames';
 
-import { Attribute } from '../../../store/data.types'
+import { Attribute, AttributeSet } from '../../../types/data.types'
 import styles from './style.module.scss'
 
-
-interface PropsI {
+type OwnProps = {
 	className?: string;
 	modal?: boolean;
-	attributes: any;
-	initialAttr?; any;
+	attributes: AttributeSet;
+	initialAttr?: Attribute;
 	disabled?: boolean;
 	onSelectAttr?: (selected: { [id: string]: Attribute }) => void
 }
 
-interface StateI {
-	selectedAttr: string;
+type OwnState = {
+	selectedAttrValue: string;
+	selectedAttrId: string;
 }
 
-
-class AttributeFrame extends Component<any, any> {
+class AttributeFrame extends Component<OwnProps, OwnState> {
 	state = {
 		selectedAttrValue: '',
 		selectedAttrId: ''
 	}
 
-	componentDidMount = () => {
+	componentDidMount = (): void => {
 		if (this.props.attributes && Object.entries(this.props.attributes).length !== 0) {
 			let initialAttr: Attribute;
 			const attrId: string = this.props.attributes.id;
@@ -37,27 +36,27 @@ class AttributeFrame extends Component<any, any> {
 				:
 				initialAttr = this.props.attributes.items[0];
 			this.setState({ selectedAttrValue: initialAttr.value })
-			!this.props.disabled && this.props.onSelectAttr({ [attrId]: initialAttr })
 		}
 	}
 
-	onSelect = (attrObj: { [id: string]: Attribute }) => {
+	onSelect = (attrObj: { [id: string]: Attribute }): void => {
 		this.setState({ selectedAttrValue: attrObj[this.state.selectedAttrId].value })
-		this.props.onSelectAttr(attrObj);
+		if (this.props.onSelectAttr) this.props.onSelectAttr(attrObj);
 	}
 
-	render() {
+	render(): JSX.Element {
 		const { className, modal, attributes, disabled } = this.props;
 		const { selectedAttrValue } = this.state;
 		let attrBtns: JSX.Element[] = [];
+
 		if (attributes) {
-			attrBtns = attributes.items.map((item: Attribute, i: number) => {
+			attrBtns = attributes.items.map((item) => {
 				let stylesItem: { backgroundColor: string, border?: string } = { backgroundColor: 'none' };
 				if (attributes.id === 'Color') { stylesItem.backgroundColor = item.value }
-				if (item.value.substring(0, 2).toLowerCase() === '#f') { stylesItem.border = '1px solid #ccc' }
+				if (item.value.substring(0, 2).toLowerCase() === '#f') { stylesItem.border = '1px solid #ccc' } //added border for white elements
 				return (
 					<button
-						key={i}
+						key={item.id}
 						disabled={disabled}
 						className={cn(
 							styles.btn, {

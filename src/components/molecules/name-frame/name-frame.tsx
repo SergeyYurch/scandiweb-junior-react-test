@@ -1,11 +1,9 @@
 import { Component } from 'react';
-
 import cn from 'classnames';
 
 import styles from './style.module.scss'
 
-
-interface PropsI {
+type OwnProps = {
 	className?: string;
 	variant?: 'small' | 'big' | 'horizontal';
 	disable?: boolean;
@@ -14,15 +12,9 @@ interface PropsI {
 	brand?: string;
 }
 
-interface StateI { }
-
-class NameFrame extends Component<PropsI, StateI> {
-	render() {
-		const {
-			className,
-			variant = 'big',
-			disable,
-		} = this.props;
+class NameFrame extends Component<OwnProps> {
+	render(): JSX.Element {
+		const { className, variant = 'big', disable } = this.props;
 		return (
 			<div className={
 				cn(

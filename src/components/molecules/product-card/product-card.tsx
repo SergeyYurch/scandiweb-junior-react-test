@@ -1,47 +1,39 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-
 import ProductImg from '../../atoms/product-img/product-img';
 import NameFrame from '../name-frame/name-frame';
 import PriceFrame from '../price-frame/price-frame';
-
-
-
-
-import styles from './style.module.scss'
 import CartAddButton from './../../atoms/cart-add-button/cart-add-button';
 
+import { Product, Currency, SelectedAttr, Price } from '../../../types/data.types';
+import styles from './style.module.scss'
+import { createPriceRecord } from '../../../helpers/helpers';
 
-
-interface PropsI {
-	product: any;
-	currency: any
+interface OwnProps {
+	product: Product;
+	currency: Currency
 	category?: string;
-	addToCart?: ''//
+	addToCart: (arg: { attr?: SelectedAttr; idProd: string; }) => void
 }
 
-interface StateI { }
+class ProductCard extends Component<OwnProps> {
 
-class ProductCard extends Component<any, StateI> {
-
-	onAddCartClick = () => {
-		console.log('Add to Cart');
-		this.props.addToCart({}, this.props.product.id)
+	onAddCartClick = (): void => {
+		this.props.addToCart({ idProd: this.props.product.id })
 	}
 
-	render() {
-		console.log('!Render ProductCard')
-		const { id, name, inStock, gallery, prices, brand, attributes } = this.props.product
-		const srcImg = gallery[0];
-		const { category } = this.props
-
-		const priceCurr = prices.find((p) => p.currency.label === this.props.currency.label)
-		const price = priceCurr.currency.symbol + priceCurr.amount
-
+	render(): JSX.Element {
+		const { category, product, currency } = this.props
+		const { id, name, inStock, gallery, prices, brand, attributes } = product
+		const srcImg: string = gallery[0];
+		const price: string = createPriceRecord(prices, currency);
 		return (
 			<div className={styles.container}>
-				{(!attributes || attributes.length === 0) && inStock && <CartAddButton className={styles.addCartBtn} disabled={!inStock} onAddCartClick={this.onAddCartClick} />}
+				{(!attributes || attributes.length === 0)
+					&& inStock
+					&& <CartAddButton className={styles.addCartBtn} disabled={!inStock} onAddCartClick={this.onAddCartClick} />
+				}
 				<Link to={`/${category}/${id}`} className={styles.link}>
 					<div className={styles.cardContent}>
 						<ProductImg disable={!inStock} src={srcImg} alt={name} />

@@ -1,62 +1,43 @@
-import React, { Component, MouseEventHandler, ReactNode } from 'react';
-import { Route, withRouter, Switch } from "react-router-dom";
-
-import { NavLink } from "react-router-dom";
+import React, { Component } from 'react';
+import { withRouter, NavLink, RouteComponentProps } from "react-router-dom";
 import { connect, ConnectedProps } from 'react-redux';
-import { RootState } from '../../../store';
-import cn from 'classnames';
 
-import { statusChangeCategory } from '../../../store/statusSlice.js'
+import { getCategorySet, setCurrentCategory } from '../../../store/dataSlice';
+import { RootState } from '../../../store';
 
 import styles from './style.module.scss'
-import Spinner from '../spinner/spinner';
-import { getCategorySet, setCurrentCategory } from '../../../store/dataSlice';
 
 const mapState = (state: RootState) => ({
 	categories: state.data.categories,
 	statusFetching: state.data.statusFetchingName,
 	currentCategory: state.data.currentCategory
 })
-
 const connector = connect(mapState, { getCategorySet, setCurrentCategory })
 
-type PropsFromRedux = ConnectedProps<typeof connector>
+type CategoryParam = { category: string }
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type Props = PropsFromRedux & RouteComponentProps<CategoryParam>;
 
-type Props = PropsFromRedux & {
-
-}
-
-
-
-class CategoryMenu extends Component<any, any> {
-
+class CategoryMenu extends Component<Props, RootState> {
 
 	componentDidMount(): void {
-		console.log('!!! CategoryMenu DidMount')
-		const category = this.props.match.params.category
+		const category: string = this.props.match.params.category;
 		this.props.setCurrentCategory(category);
 	}
-	componentDidUpdate(prevProps: any, prevState: any): void {
-		// this.props.getCategorySet(category);
 
-	}
-
-	changeMenu = (e: React.MouseEvent<HTMLAnchorElement>, link: string): any => {
-		console.log(link)
+	changeMenu = (e: React.MouseEvent<HTMLAnchorElement>, link: string): void => {
 		if (link !== this.props.currentCategory) {
 			this.props.setCurrentCategory(link);
-			this.props.getCategorySet(link)
+			this.props.getCategorySet(link);
 		}
-
-
 	}
 
-	render() {
+	render(): JSX.Element {
 		const { categories, statusFetching } = this.props;
 		let menu: JSX.Element[] = [];
 		if (statusFetching === 'idle') {
-			menu = categories.map((el: any, i: number) => {
-				const link: string = String(el).toLowerCase();
+			menu = categories.map((el: string, i: number) => {
+				const link: string = el.toLowerCase();
 				return (
 					<li key={i}>
 						<NavLink to={'/' + link} activeClassName={styles.active} className={styles.item} onClick={(e: React.MouseEvent<HTMLAnchorElement>) => this.changeMenu(e, link)}>

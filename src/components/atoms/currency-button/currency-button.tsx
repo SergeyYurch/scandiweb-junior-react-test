@@ -1,28 +1,34 @@
-import { Component, ReactNode } from 'react';
+import React from 'react';
+import { Component } from 'react';
 import { ReactComponent as Arrow } from '../../../icons/arrow-down.svg';
+
+import { Currency } from './../../../types/data.types';
 
 import styles from './style.module.scss'
 
 
-interface PropsI {
-	children?: ReactNode | string;
-	onCurrencyClick: () => void
-	currency: any
+interface OwmProps {
+	onCurrencyClick: () => void;
+	currency: Currency;
+	currencyIsShow?: boolean;
 }
 
-interface StateI { }
 
-class CurrensyButton extends Component<PropsI, StateI> {
-	onCurrencyClick = (e) => {
+class CurrensyButton extends Component<OwmProps> {
+
+	ref: React.RefObject<HTMLButtonElement> = React.createRef<HTMLButtonElement>()
+
+	onCurrencyClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.stopPropagation()
 		this.props.onCurrencyClick()
 	}
-	render() {
-		const { currency } = this.props
+
+	render(): JSX.Element {
+		const { currencyIsShow, currency } = this.props;
 		return (
-			<button onClick={(e) => this.onCurrencyClick(e)} className={styles.currencyButton}>
+			<button ref={this.ref} onClick={(e) => this.onCurrencyClick(e)} className={styles.currencyButton}>
 				<span>{currency.symbol}</span>
-				<Arrow />
+				<Arrow className={currencyIsShow ? styles.currencyIsShow : styles.svg} />
 			</button>
 		);
 	}

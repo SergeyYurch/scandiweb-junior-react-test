@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import cn from 'classnames';
 
 import styles from './style.module.scss'
 
 
-export interface ButtonPropsI {
+type OwnProps = {
 	className?: string;
 	disable?: boolean;
 	src: string;
 	alt: string;
 }
 
-
-class ProductImg extends Component<ButtonPropsI> {
-
-	render() {
+class ProductImg extends Component<OwnProps> {
+	render(): JSX.Element {
 		const { className, disable, src, alt } = this.props;
 		return (
 			<figure className={cn(styles.imgContainer, className, { [styles["disable"]]: disable })}>

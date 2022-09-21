@@ -1,7 +1,6 @@
 import { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import dompurify from 'dompurify';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../../store';
 import { getProduct } from '../../../store/dataSlice'
@@ -9,59 +8,61 @@ import { getProduct } from '../../../store/dataSlice'
 import Spinner from '../../molecules/spinner/spinner';
 import ErrorMessageIcon from '../../molecules/error-message/error-message';
 import ProductDPView from './product-dp-view';
-import { addProductToCart, updateProductInCart } from '../../../store/cartSlice';
-import { Attribute } from './../../../store/data.types';
-import { withAddToCart } from '../../../hoc/with-add-to-cart';
+import { addProductToCart, updateProductInCart, addToCartThunk } from '../../../store/cartSlice';
+import { SelectedAttr } from '../../../types/data.types';
+import { toCleanDescription } from '../../../helpers/helpers';
 
 const mapState = (state: RootState) => ({
 	thisProduct: state.data.product,
 	statusFetchingProduct: state.data.statusFetchingProduct,
 	currency: state.status.currency,
 })
-const connector = connect(mapState, { getProduct, addProductToCart, updateProductInCart })
+const connector = connect(mapState, { getProduct, addProductToCart, updateProductInCart, addToCartThunk })
 
-class ProductDP extends Component<any, any> {
+type ProductParam = { id: string };
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type Props = PropsFromRedux & RouteComponentProps<ProductParam>;
+type State = {
+	activeImg: string;
+	attributes: SelectedAttr;
+}
+
+class ProductDP extends Component<Props, State> {
 	state = {
-		activeImg: 'img',
+		activeImg: '',
 		attributes: {}
 	}
 
 	componentDidMount = (): void => {
-		const id = this.props.match.params.id
+		const id: string = this.props.match.params.id
 		this.props.getProduct(id)
 	}
 
-	onChangeImg = (activeImg: string) => {
+	onChangeImg = (activeImg: string): void => {
 		this.setState({ activeImg })
 	}
 
-	onSelectAttr = (attr: { [id: string]: Attribute }): void => {
+	onSelectAttr = (attr: SelectedAttr): void => {
 		this.setState((state) => {
 			return { attributes: { ...state.attributes, ...attr } }
 		})
 	}
 
-	toCleanDescription = (description: string): { __html: string } => {
-		const cleanDescriprion = dompurify.sanitize(description, { FORCE_BODY: true })
-		return ({ __html: cleanDescriprion })
+	onAddToCart = (): void => {
+		this.props.addToCartThunk({ attr: this.state.attributes, idProd: this.props.thisProduct.id })
 	}
 
-	onAddToCart = () => {
-		this.props.addToCart(this.state.attributes, this.props.thisProduct.id)
-	}
-
-	render() {
+	render(): JSX.Element {
 		const { statusFetchingProduct, thisProduct, currency } = this.props
-		const cleanDescriprion = this.toCleanDescription(thisProduct.description)
 		return (
 			<>
-				{statusFetchingProduct === 'loading' && <Spinner />}
+				{(statusFetchingProduct === 'loading' || !thisProduct) && <Spinner />}
 				{statusFetchingProduct === 'error' && <ErrorMessageIcon />}
-				{statusFetchingProduct === 'idle' &&
+				{statusFetchingProduct === 'idle' && thisProduct &&
 					< ProductDPView
 						product={thisProduct}
 						currency={currency}
-						cleanDescriprion={cleanDescriprion}
+						cleanDescriprion={toCleanDescription(thisProduct.description)}
 						activeImg={this.state.activeImg}
 						onAddToCart={this.onAddToCart}
 						onSelectAttr={this.onSelectAttr}
@@ -71,4 +72,4 @@ class ProductDP extends Component<any, any> {
 		);
 	}
 }
-export default connector(withRouter(withAddToCart(ProductDP)));
+export default connector(withRouter(ProductDP));

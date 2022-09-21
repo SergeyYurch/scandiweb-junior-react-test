@@ -1,55 +1,85 @@
 import { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import cn from 'classnames';
+
 import { RootState } from '../../../store';
+import { Currency } from './../../../types/data.types';
+import { statusSetCurrencyIsShow, statusSetCurrency } from '../../../store/statusSlice';
 
 import styles from './style.module.scss'
-import { statusSetCurrencyIsShow, statusSetCurrency } from '../../../store/statusSlice';
-import { generateId } from './../../../helpers/helpers';
+import React from 'react';
 
-interface PropsI {
-	className?: string;
-
-}
-
-interface StateI { }
 const mapState = (state: RootState) => ({
-	curencyIsShow: state.status.currencyIsShow,
 	currency: state.status.currency,
 	currencies: state.data.currencies,
 })
-
-
 const connector = connect(mapState, { statusSetCurrencyIsShow, statusSetCurrency })
 
+type PropsFromRedux = ConnectedProps<typeof connector>
+type OwnProps = { className?: string }
+type Props = PropsFromRedux & OwnProps;
+type State = {
+	inFocus: number;
+	amount: number;
+}
 
-
-class CurrencyModal extends Component<any, StateI> {
-	componentDidMount(): void {
-		console.log('currency did mount');
-
+class CurrencyModal extends Component<Props, State> {
+	state = {
+		inFocus: 0,
+		amount: 0
 	}
-	setCurrency = (curr) => {
+
+	refButtons: React.RefObject<HTMLButtonElement>[] = this.props.currencies.map(() => React.createRef<HTMLButtonElement>())
+
+	componentDidMount(): void {
+		this.setState({ amount: this.props.currencies.length })
+	}
+
+	setCurrency = (curr: Currency): void => {
 		this.props.statusSetCurrency(curr);
 		this.props.statusSetCurrencyIsShow(false);
 	}
 
-	closeModal = () => {
-		console.log('close modal');
+	closeModal = (): void => {
 		this.props.statusSetCurrencyIsShow(false);
 	}
 
-	render() {
+	onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
+		if (e.key === 'ArrowDown') {
+			e.preventDefault()
+			this.setState(state => {
+				let pos: number = state.inFocus + 1
+				if (pos === state.amount) pos = 0;
+				return { inFocus: pos };
+			})
+		}
+		if (e.key === 'ArrowUp') {
+			e.preventDefault()
+			this.setState(state => {
+				let pos: number = state.inFocus - 1
+				if (pos < 0) pos = state.amount - 1;
+				return { inFocus: pos };
+			})
+		}
+		if (e.key === 'Escape' || e.key === 'Tab') this.closeModal()
+	}
+
+	render(): JSX.Element {
+		this.refButtons[this.state.inFocus].current?.focus()
 		const { className, currencies, currency } = this.props;
-		let currencyItems = [];
+		let currencyItems: JSX.Element[] = [];
 		if (currencies) {
-			currencyItems = currencies.map((curr) => {
+			currencyItems = currencies.map((curr, i) => {
 				return (
 					<button
-						key={generateId()}
-						className={cn(styles.item, {
-							[styles.active]: curr.label === currency.label
-						})}
+						key={curr.label}
+						ref={this.refButtons[i]}
+						className={cn(
+							styles.item,
+							{
+								[styles.active]: curr.label === currency.label
+							}
+						)}
 						onClick={() => this.setCurrency(curr)}
 					>
 						{`${curr.symbol} ${curr.label}`}
@@ -59,7 +89,7 @@ class CurrencyModal extends Component<any, StateI> {
 		}
 
 		return (
-			<div className={cn(styles.modalContainer, className)} onClick={(e) => e.stopPropagation()}>
+			<div className={cn(styles.modalContainer, className)} onKeyDown={(e) => this.onKeyDown(e)} onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => e.stopPropagation()}>
 				{currencyItems}
 			</div >
 		);

@@ -8,60 +8,46 @@ import { ReactComponent as ArrowRight } from '../../../icons/arrow-right.svg';
 import { ReactComponent as ArrowLeft } from '../../../icons/arrow-left.svg';
 
 
-export type ButtonTypeE =
-	| 'size_type'
-	| 'green'
-	| 'square'
-	| 'color_type'
-	| 'transparent'
-
-
-
-export interface ButtonPropsI {
+type OwnProps = {
 	modal?: boolean;
-	children?: ReactNode | string;
-	variant?: ButtonTypeE;
 	className?: string;
-	disabled?: boolean;
-	onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 	gallery: string[];
-
+	name: string;
+}
+type OwnState = {
+	currentImg: number
 }
 
-interface StateI { }
-
-class Carousel extends Component<any, any> {
+class Carousel extends Component<OwnProps, OwnState> {
 	state = {
 		currentImg: 0
 	}
+
 	changeImg = (direction: 'right' | 'left') => {
-		const lengthGallery = this.props.gallery.length
+		const lengthGallery: number = this.props.gallery.length
 		if (direction === 'right') {
 			this.setState((state) => {
-				let newImgIndex = this.state.currentImg + 1;
+				let newImgIndex: number = this.state.currentImg + 1;
 				if (newImgIndex === lengthGallery) newImgIndex = 0;
 				return { currentImg: newImgIndex }
 			})
 		}
-
 		if (direction === 'left') {
 			this.setState((state) => {
-				let newImgIndex = this.state.currentImg - 1;
+				let newImgIndex: number = this.state.currentImg - 1;
 				if (newImgIndex < 0) newImgIndex = lengthGallery - 1;
 				return { currentImg: newImgIndex }
 			})
 		}
-
-
 	}
-	render() {
+
+	render(): JSX.Element {
 		const {
 			modal,
 			className,
 			gallery,
-			onClick,
 			name,
-			...props } = this.props;
+		} = this.props;
 
 		return (
 			<div
@@ -69,10 +55,9 @@ class Carousel extends Component<any, any> {
 					styles.carousel,
 					className,
 				)}
-				{...props}
 			>
 				<figure className={styles.imgContainer}>
-					<img src={gallery[this.state.currentImg]} alt="{name}" />
+					<img src={gallery[this.state.currentImg]} alt={name} />
 				</figure>
 				{!modal && gallery.length > 1 &&
 					<div className={styles.control}>
@@ -84,8 +69,6 @@ class Carousel extends Component<any, any> {
 						</Button>
 					</div>
 				}
-
-
 			</div>
 		);
 	}
