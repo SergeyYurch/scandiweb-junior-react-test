@@ -1,4 +1,4 @@
-#Scandiweb Junior Developer test
+# Scandiweb Junior Developer test
 
 This is a test task for the position of a junior react developer. 
 During the development process, I used:
