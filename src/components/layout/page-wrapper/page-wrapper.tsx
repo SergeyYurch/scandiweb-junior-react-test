@@ -5,7 +5,7 @@ import Logo from '../../atoms/logo/logo';
 import ActionMenu from '../../molecules/action-menu/action-menu';
 import CategoryMenu from '../../molecules/category-menu/category-menu';
 import CurrencyModal from '../../molecules/currency-modal/currency-modal';
-import Cart from '../../organism/cart/cart';
+import Cart from '../../pages/cart/cart';
 
 import { RootState } from '../../../store';
 import { statusSetCartShow, statusSetCurrencyIsShow, statusSetCartView } from '../../../store/statusSlice';

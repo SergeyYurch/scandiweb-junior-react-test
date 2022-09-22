@@ -17,9 +17,9 @@ export interface Product {
 	name: string,
 	inStock: boolean,
 	gallery: string[],
-	description: string,
-	category: string,
-	attributes: AttributeSet[],
+	description?: string,
+	category?: string,
+	attributes?: AttributeSet[],
 	prices: Price[],
 	brand: string
 }
@@ -48,3 +48,9 @@ export interface CartProduct {
 export interface SelectedAttr {
 	[name: string]: Attribute
 }
+
+export interface CleanHtml {
+	__html: string
+}
+
+

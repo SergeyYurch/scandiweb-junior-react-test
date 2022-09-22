@@ -9,7 +9,7 @@ import ErrorMessageIcon from '../../molecules/error-message/error-message';
 import { RootState } from '../../../store';
 import { getCategorySet } from '../../../store/dataSlice';
 import { addToCartThunk } from '../../../store/cartSlice';
-import { Product } from './../../../types/data.types';
+import { Product } from '../../../types/data.types';
 
 import styles from './style.module.scss';
 

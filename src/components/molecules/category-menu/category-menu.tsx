@@ -52,6 +52,7 @@ class CategoryMenu extends Component<Props, RootState> {
 			<nav className={styles.wrapper} >
 				<ul>
 					{statusFetching === 'loading' && <span> Loading...</span>}
+					{statusFetching === 'error' && <span> Error loading...</span>}
 					{menu}
 				</ul>
 			</nav >

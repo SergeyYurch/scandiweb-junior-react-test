@@ -27,7 +27,7 @@ interface Currencies {
 }
 
 
-export const getCategoriesName = createAsyncThunk(
+export const getCategoriesName = createAsyncThunk<CategoriesNames>(
 	'data/getCategoriesName',
 	async () => {
 		const res = await ApiServices.getCategoriesName()
@@ -43,7 +43,7 @@ export const getCategorySet = createAsyncThunk<Product[], string, {}>(
 	}
 );
 
-export const getProduct = createAsyncThunk(
+export const getProduct = createAsyncThunk<Product, string, {}>(
 	'data/getProduct',
 	async (id: string) => {
 		const res = await ApiServices.getProduct(id)
@@ -52,14 +52,13 @@ export const getProduct = createAsyncThunk(
 );
 
 
-export const getCurrencies = createAsyncThunk(
+export const getCurrencies = createAsyncThunk<Currencies>(
 	'data/getCurrencies',
 	async (arg, thunkAPI) => {
 		const res = await ApiServices.getCurrencies()
 		thunkAPI.dispatch(statusSetCurrency(res.currencies[0]))
 		return res as Currencies
 	}
-
 );
 
 const initialState: DataState = {
@@ -71,17 +70,17 @@ const initialState: DataState = {
 	categories: [],
 	categorySet: [],
 	product: {
-		id: '',
-		name: '',
+		id: 'none',
+		name: 'none',
 		inStock: true,
-		gallery: [],
+		gallery: [''],
 		description: '',
-		category: '',
+		category: 'All',
 		attributes: [],
-		prices: [],
-		brand: ''
+		prices: [{ currency: { label: 'USD', symbol: '$' }, amount: 0 }],
+		brand: 'none'
 	},
-	currencies: []
+	currencies: [{ label: 'USD', symbol: '$' }]
 }
 
 export const dataSlice = createSlice({

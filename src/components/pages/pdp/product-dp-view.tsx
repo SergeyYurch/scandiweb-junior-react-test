@@ -78,7 +78,7 @@ class ProductDPView extends Component<OwnProps> {
 						<NameFrame className={styles.name} variant='big' name={name} brand={brand} />
 						{attributesSet}
 						<PriceFrame showLabel bold className={styles.price} price={price} />
-						<Button className={styles.addToCartBtn} disabled={!inStock} onClick={this.props.onAddToCart}>ADD TO CART</Button>
+						<Button className={styles.addToCartBtn} autoFocus disabled={!inStock} onClick={this.props.onAddToCart}>ADD TO CART</Button>
 						<div className={styles.description} dangerouslySetInnerHTML={cleanDescriprion}>
 						</div>
 					</div>

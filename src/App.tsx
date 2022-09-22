@@ -3,8 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import { connect, ConnectedProps } from 'react-redux';
 
 import PageWrapper from './components/layout/page-wrapper/page-wrapper';
-import ProductsList from './components/organism/products-list/product-list';
-import ProductDP from './components/organism/pdp/product-dp';
+import ProductsList from './components/pages/products-list/product-list';
+import ProductDP from './components/pages/pdp/product-dp';
 import ErrorBoundary from './components/error-boundary/error-boundary';
 
 import { getCategoriesName, getCurrencies } from './store/dataSlice';

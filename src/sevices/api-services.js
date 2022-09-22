@@ -12,7 +12,6 @@ export const getCurrencies = async () => {
 		])
 
 	return await client.post(query)
-
 }
 
 export const getCategories = async () => {
@@ -29,16 +28,13 @@ export const getCategories = async () => {
 			]))
 
 	return await client.post(query)
-
 }
 
 export const getCategoriesName = async () => {
 	const query = new Query("categories", false)
 		.addField(new Field("name", true))
 	return await client.post(query)
-
 }
-
 
 export const getCategory = async (category) => {
 	const query = new Query("category", true)
@@ -57,6 +53,7 @@ export const getCategory = async (category) => {
 	const res = await client.post(query)
 	return res.category.products;
 }
+
 export const getProduct = async (id) => {
 	const query = new Query("product", false)
 		.addArgument("id", "String!", id)

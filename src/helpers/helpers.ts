@@ -1,5 +1,5 @@
 import dompurify from 'dompurify';
-import { Currency, Price, Product } from '../types/data.types'
+import { CleanHtml, Currency, Price, Product } from '../types/data.types'
 
 export const generateId = (): string => Math.random().toString(16).substring(2, 9)
 
@@ -21,7 +21,7 @@ export const createPriceRecord = (prices: Price[], currency: Currency): string =
 }
 
 
-export const toCleanDescription = (description: string): { __html: string } => {
+export const toCleanDescription = (description: string): CleanHtml => {
 	const cleanDescriprion = dompurify.sanitize(description, { FORCE_BODY: true })
 	return ({ __html: cleanDescriprion })
 }

@@ -9,7 +9,7 @@ import Spinner from '../../molecules/spinner/spinner';
 import ErrorMessageIcon from '../../molecules/error-message/error-message';
 import ProductDPView from './product-dp-view';
 import { addProductToCart, updateProductInCart, addToCartThunk } from '../../../store/cartSlice';
-import { SelectedAttr } from '../../../types/data.types';
+import { CleanHtml, SelectedAttr } from '../../../types/data.types';
 import { toCleanDescription } from '../../../helpers/helpers';
 
 const mapState = (state: RootState) => ({
@@ -53,7 +53,9 @@ class ProductDP extends Component<Props, State> {
 	}
 
 	render(): JSX.Element {
-		const { statusFetchingProduct, thisProduct, currency } = this.props
+		const { statusFetchingProduct, thisProduct, currency } = this.props;
+		let cleanHtml: CleanHtml = { __html: '' }
+		if (thisProduct.description) cleanHtml = toCleanDescription(thisProduct.description);
 		return (
 			<>
 				{(statusFetchingProduct === 'loading' || !thisProduct) && <Spinner />}
@@ -62,7 +64,7 @@ class ProductDP extends Component<Props, State> {
 					< ProductDPView
 						product={thisProduct}
 						currency={currency}
-						cleanDescriprion={toCleanDescription(thisProduct.description)}
+						cleanDescriprion={cleanHtml}
 						activeImg={this.state.activeImg}
 						onAddToCart={this.onAddToCart}
 						onSelectAttr={this.onSelectAttr}
