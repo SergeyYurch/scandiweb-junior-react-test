@@ -2,9 +2,9 @@
 
 This is a test task for the position of a junior react developer. 
 During the development process, I used:
- -React+Typescript
- -Redux-Toolkit
- -GraphQL (@tilework/opus)
+ - React+Typescript
+ - Redux-Toolkit
+ - GraphQL (@tilework/opus)
  
  The project was completed in accordance with the requirements:
  
