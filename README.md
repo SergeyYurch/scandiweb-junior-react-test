@@ -10,8 +10,8 @@ During the development process, I used:
  
  ## Required:
 
-- React. Anything not written in React will be rejected automatically. This is a React position, we expect a React solution.
-- Class components. Due to our [work specifics]([https://docs.scandipwa.com/stack/override-mechanism/extending-javascript](https://docs.scandipwa.com/developing-with-scandi/override-mechanism/extending-javascript)) we utilize them heavily.
+- React. 
+- Class components.
 - Create-react-app to scaffold the application.
 
 ## Allowed:
