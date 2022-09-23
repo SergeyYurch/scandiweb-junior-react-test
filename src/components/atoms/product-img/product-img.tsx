@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 import cn from 'classnames';
 
-import styles from './style.module.scss'
+import styles from './style.module.scss';
 
 
 type OwnProps = {

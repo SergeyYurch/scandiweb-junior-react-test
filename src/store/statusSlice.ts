@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Currency } from './../types/data.types';
 
 interface StatusState {
-	// loadingMenu: boolean;
-	// loadingCurrency: boolean;
+	modalIsShow: boolean;
+	modalContent: Modal;
 	category: string;
 	currency: Currency;
 	cartIsModal: boolean;
@@ -11,9 +11,14 @@ interface StatusState {
 	cartIsShow: boolean;
 }
 
+type Modal = {
+	title: string,
+	message: string,
+}
+
 const initialState: StatusState = {
-	// loadingMenu: false,
-	// loadingCurrency: false,
+	modalIsShow: false,
+	modalContent: { title: '', message: '' },
 	category: '',
 	currency: { label: 'USD', symbol: '$' },
 	cartIsModal: true,
@@ -26,7 +31,11 @@ export const statusSlice = createSlice({
 	initialState,
 	reducers: {
 		statusChangeCategory: (state, action: PayloadAction<string>) => { state.category = action.payload },
-		// statusCategoryFetching: (state) => { state.loadingMenu = true },
+		statusOnCloseModal: (state) => { state.modalIsShow = false },
+		statusOnShowModal: (state, action: PayloadAction<Modal>) => {
+			state.modalIsShow = true;
+			state.modalContent = action.payload;
+		},
 		statusSetCartShow: (state, action: PayloadAction<boolean>) => { state.cartIsShow = action.payload },
 		statusSetCartView: (state, action: PayloadAction<boolean>) => { state.cartIsModal = action.payload },
 		statusSetCurrencyIsShow: (state, action: PayloadAction<boolean>) => { state.currencyIsShow = action.payload },
@@ -38,7 +47,8 @@ const { actions, reducer } = statusSlice
 export default reducer;
 export const {
 	statusChangeCategory,
-	// statusCategoryFetching,
+	statusOnCloseModal,
+	statusOnShowModal,
 	statusSetCartShow,
 	statusSetCurrencyIsShow,
 	statusSetCurrency,

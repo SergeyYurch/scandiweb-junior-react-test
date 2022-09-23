@@ -7,7 +7,7 @@ import Button from '../../atoms/button/button';
 
 import { RootState } from '../../../store';
 import { updateProductInCart, deleteProductFromCart, clearCart } from '../../../store/cartSlice';
-import { statusSetCartView, statusSetCartShow } from '../../../store/statusSlice';
+import { statusSetCartView, statusSetCartShow, statusOnShowModal } from '../../../store/statusSlice';
 import { Price } from '../../../types/data.types';
 import { getPrice } from '../../../helpers/helpers';
 
@@ -25,6 +25,7 @@ const connector = connect(mapState, {
 	clearCart,
 	statusSetCartView,
 	statusSetCartShow,
+	statusOnShowModal
 })
 
 
@@ -34,13 +35,11 @@ type OwnProps = { modal?: boolean }
 type Props = PropsFromRedux & OwnProps
 
 class Cart extends Component<Props> {
+	refCart: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 
 	componentDidUpdate = (): void => {
 		if (this.props.cartState.quantity === 0) this.props.statusSetCartShow(false);
 	}
-
-	refCart: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
-	vievBagRef: React.RefObject<HTMLButtonElement> = React.createRef<HTMLButtonElement>();
 
 	onUpdateProductCount = (id: string, oldCount: number, value: number): void => {
 		if ((oldCount + value) < 1) {
@@ -51,8 +50,10 @@ class Cart extends Component<Props> {
 	}
 
 	onOrder = (): void => {
-		alert('Thanks for shopping in our store');
+		this.props.statusOnShowModal({ title: 'Cart', message: 'Thanks for shopping' })
 		this.props.clearCart();
+		this.onCloseCart();
+
 	}
 
 	onViewBag = (): void => {

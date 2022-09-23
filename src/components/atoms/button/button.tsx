@@ -2,7 +2,7 @@ import { MouseEvent, Component, ReactNode } from 'react';
 
 import cn from 'classnames';
 
-import styles from './style.module.scss'
+import styles from './style.module.scss';
 import { SyntheticEvent } from 'react';
 
 type ButtonTypeE = 'green' | 'transparent' | 'black';
@@ -22,7 +22,7 @@ type OwnProps = {
 class Button extends Component<OwnProps> {
 
 	onKeyDownE = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-		if (!(e.key === 'Escape')) { e.stopPropagation() }
+		if (!(e.key === 'Escape')) { e.stopPropagation() };
 		if (this.props.onKeyDown) this.props.onKeyDown(e);
 	}
 
@@ -37,8 +37,6 @@ class Button extends Component<OwnProps> {
 			onBlur,
 			onClick,
 		} = this.props;
-
-
 
 		return (
 			<button

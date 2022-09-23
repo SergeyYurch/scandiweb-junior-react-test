@@ -1,8 +1,8 @@
-import { Component, ErrorInfo } from 'react'
+import { Component, ErrorInfo } from 'react';
 import ErrorMessageIcon from '../molecules/error-message/error-message';
 
 type State = {
-	error: boolean;
+	error: boolean
 }
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 class ErrorBoundary extends Component<Props, State> {
 	state = {
-		error: false,
+		error: false
 	}
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo): void {

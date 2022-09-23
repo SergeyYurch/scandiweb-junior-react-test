@@ -4,7 +4,7 @@ import { ReactComponent as Arrow } from '../../../icons/arrow-down.svg';
 
 import { Currency } from './../../../types/data.types';
 
-import styles from './style.module.scss'
+import styles from './style.module.scss';
 
 
 interface OwmProps {
@@ -15,12 +15,11 @@ interface OwmProps {
 
 
 class CurrensyButton extends Component<OwmProps> {
-
-	ref: React.RefObject<HTMLButtonElement> = React.createRef<HTMLButtonElement>()
+	ref: React.RefObject<HTMLButtonElement> = React.createRef<HTMLButtonElement>();
 
 	onCurrencyClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		e.stopPropagation()
-		this.props.onCurrencyClick()
+		e.stopPropagation();
+		this.props.onCurrencyClick();
 	}
 
 	render(): JSX.Element {
