@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 import cn from 'classnames';
 
-import styles from './style.module.scss'
+import styles from './style.module.scss';
 import PriceFrame from '../price-frame/price-frame';
 
 type OwnProps = {
@@ -11,7 +11,7 @@ type OwnProps = {
 	quantity: number;
 	total: number;
 	currencySymbol: string;
-}
+};
 
 class CartTotal extends Component<OwnProps> {
 	render(): JSX.Element {
@@ -23,8 +23,8 @@ class CartTotal extends Component<OwnProps> {
 			currencySymbol
 		} = this.props;
 
-		const totalStr: string = currencySymbol + total.toFixed(2)
-		const tax: string = currencySymbol + (total * 0.21).toFixed(2)
+		const totalStr: string = currencySymbol + total.toFixed(2);
+		const tax: string = currencySymbol + (total * 0.21).toFixed(2);
 
 		return (
 			<div className={

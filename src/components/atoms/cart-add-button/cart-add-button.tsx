@@ -7,17 +7,17 @@ type OwnProps = {
 	className: string;
 	disabled: boolean;
 	onAddCartClick: () => void;
-}
+};
 
 class CartAddButton extends Component<OwnProps> {
 
 	onAddCartClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
 		e.stopPropagation();
-		this.props.onAddCartClick()
-	}
+		this.props.onAddCartClick();
+	};
 
 	render(): JSX.Element {
-		const { className, disabled } = this.props
+		const { className, disabled } = this.props;
 		return (
 			<Button onClick={(e) => this.onAddCartClick(e)} disabled={disabled} className={className}>
 				<AddCartLogo />

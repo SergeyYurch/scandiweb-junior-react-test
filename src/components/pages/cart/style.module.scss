@@ -78,7 +78,6 @@
 		display: grid;
 		grid-template-columns: 279px 1fr 1fr;
 	}
-
 }
 
 .modalContainer {
@@ -94,8 +93,6 @@
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: auto 1fr auto auto;
-
-
 
 	.headerCart {
 		margin-bottom: 12px;
@@ -120,7 +117,6 @@
 		display: grid;
 		grid-template-columns: 100%;
 		grid-auto-rows: auto;
-		// grid-template-rows: repeat(auto-fit, 1fr);
 
 		.productItem {
 			padding: 20px 0;

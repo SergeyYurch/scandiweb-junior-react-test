@@ -49,8 +49,14 @@ export interface SelectedAttr {
 	[name: string]: Attribute
 }
 
+export interface CategoriesNames {
+	categories: {name: string}[];
+}
+
+export interface Currencies {
+	currencies: Currency[]
+}
+
 export interface CleanHtml {
 	__html: string
 }
-
-

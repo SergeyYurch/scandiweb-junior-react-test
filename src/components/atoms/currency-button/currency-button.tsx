@@ -20,7 +20,7 @@ class CurrensyButton extends Component<OwmProps> {
 	onCurrencyClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.stopPropagation();
 		this.props.onCurrencyClick();
-	}
+	};
 
 	render(): JSX.Element {
 		const { currencyIsShow, currency } = this.props;

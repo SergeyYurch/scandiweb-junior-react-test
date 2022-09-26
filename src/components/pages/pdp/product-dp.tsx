@@ -3,7 +3,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../../store';
-import { getProduct } from '../../../store/dataSlice'
+import { getProduct } from '../../../store/dataSlice';
 
 import Spinner from '../../molecules/spinner/spinner';
 import ErrorMessageIcon from '../../molecules/error-message/error-message';
@@ -16,8 +16,8 @@ const mapState = (state: RootState) => ({
 	thisProduct: state.data.product,
 	statusFetchingProduct: state.data.statusFetchingProduct,
 	currency: state.status.currency,
-})
-const connector = connect(mapState, { getProduct, addProductToCart, updateProductInCart, addToCartThunk })
+});
+const connector = connect(mapState, { getProduct, addProductToCart, updateProductInCart, addToCartThunk });
 
 type ProductParam = { id: string };
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -25,37 +25,38 @@ type Props = PropsFromRedux & RouteComponentProps<ProductParam>;
 type State = {
 	activeImg: string;
 	attributes: SelectedAttr;
-}
+};
 
 class ProductDP extends Component<Props, State> {
 	state = {
 		activeImg: '',
 		attributes: {}
-	}
+	};
 
 	componentDidMount = (): void => {
-		const id: string = this.props.match.params.id
-		this.props.getProduct(id)
-	}
+		const id: string = this.props.match.params.id;
+		this.props.getProduct(id);
+	};
 
 	onChangeImg = (activeImg: string): void => {
-		this.setState({ activeImg })
-	}
+		this.setState({ activeImg });
+	};
 
 	onSelectAttr = (attr: SelectedAttr): void => {
 		this.setState((state) => {
-			return { attributes: { ...state.attributes, ...attr } }
-		})
-	}
+			return { attributes: { ...state.attributes, ...attr } };
+		});
+	};
 
 	onAddToCart = (): void => {
-		this.props.addToCartThunk({ attr: this.state.attributes, idProd: this.props.thisProduct.id })
-	}
+		this.props.addToCartThunk({ attr: this.state.attributes, idProd: this.props.thisProduct.id });
+	};
 
 	render(): JSX.Element {
 		const { statusFetchingProduct, thisProduct, currency } = this.props;
-		let cleanHtml: CleanHtml = { __html: '' }
-		if (thisProduct.description) cleanHtml = toCleanDescription(thisProduct.description);
+		let cleanHtml: CleanHtml = { __html: '' };
+		if (thisProduct && thisProduct.description) {
+			cleanHtml = toCleanDescription(thisProduct.description);}
 		return (
 			<>
 				{(statusFetchingProduct === 'loading' || !thisProduct) && <Spinner />}

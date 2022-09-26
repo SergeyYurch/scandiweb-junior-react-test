@@ -17,7 +17,7 @@ const mapState = (state: RootState) => ({
 	statusFetching: state.data.statusFetchingCategory,
 	categorySet: state.data.categorySet,
 	currency: state.status.currency,
-})
+});
 const connector = connect(mapState, { getCategorySet, addToCartThunk });
 
 type CategoryParam = { category: string };
@@ -34,17 +34,17 @@ class ProductsList extends Component<Props> {
 	render(): JSX.Element {
 		const { statusFetching, categorySet, currency, addToCartThunk } = this.props;
 		const categoryName: string = this.props.match.params.category;
-		const printCategoryName: string = categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
+		const printCategoryName: string = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
 		let productCards: JSX.Element[] = [];
 		if (currency && categorySet && categorySet.length > 0) {
-			productCards = categorySet.map((prod: Product) =>
+			productCards = categorySet.map((prod: Product, i) =>
 				<ProductCard
-					key={prod.id}
+					key={i}
 					addToCart={addToCartThunk}
 					category={categoryName}
 					currency={currency}
 					product={prod}
-				/>)
+				/>);
 		}
 
 		return (
@@ -56,7 +56,7 @@ class ProductsList extends Component<Props> {
 					{statusFetching === 'idle' && productCards}
 				</div>
 			</div>
-		)
+		);
 	}
 }
 

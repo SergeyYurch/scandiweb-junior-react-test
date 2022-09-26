@@ -5,16 +5,16 @@ import { connect, ConnectedProps } from 'react-redux';
 import { getCategorySet, setCurrentCategory } from '../../../store/dataSlice';
 import { RootState } from '../../../store';
 
-import styles from './style.module.scss'
+import styles from './style.module.scss';
 
 const mapState = (state: RootState) => ({
 	categories: state.data.categories,
 	statusFetching: state.data.statusFetchingName,
 	currentCategory: state.data.currentCategory
-})
-const connector = connect(mapState, { getCategorySet, setCurrentCategory })
+});
+const connector = connect(mapState, { getCategorySet, setCurrentCategory });
 
-type CategoryParam = { category: string }
+type CategoryParam = { category: string };
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & RouteComponentProps<CategoryParam>;
 
@@ -30,7 +30,7 @@ class CategoryMenu extends Component<Props, RootState> {
 			this.props.setCurrentCategory(link);
 			this.props.getCategorySet(link);
 		}
-	}
+	};
 
 	render(): JSX.Element {
 		const { categories, statusFetching } = this.props;
@@ -44,7 +44,7 @@ class CategoryMenu extends Component<Props, RootState> {
 							{el}
 						</NavLink >
 					</li>
-				)
+				);
 			});
 		}
 

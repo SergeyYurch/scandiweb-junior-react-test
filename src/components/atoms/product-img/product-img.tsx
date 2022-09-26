@@ -10,7 +10,7 @@ type OwnProps = {
 	disable?: boolean;
 	src: string;
 	alt: string;
-}
+};
 
 class ProductImg extends Component<OwnProps> {
 	render(): JSX.Element {

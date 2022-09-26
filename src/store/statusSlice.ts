@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Currency } from './../types/data.types';
 
 interface StatusState {
@@ -14,7 +14,7 @@ interface StatusState {
 type Modal = {
 	title: string,
 	message: string,
-}
+};
 
 const initialState: StatusState = {
 	modalIsShow: false,
@@ -24,26 +24,26 @@ const initialState: StatusState = {
 	cartIsModal: true,
 	currencyIsShow: false,
 	cartIsShow: false,
-}
+};
 
 export const statusSlice = createSlice({
 	name: 'status',
 	initialState,
 	reducers: {
-		statusChangeCategory: (state, action: PayloadAction<string>) => { state.category = action.payload },
-		statusOnCloseModal: (state) => { state.modalIsShow = false },
+		statusChangeCategory: (state, action: PayloadAction<string>) => { state.category = action.payload; },
+		statusOnCloseModal: (state) => { state.modalIsShow = false; },
 		statusOnShowModal: (state, action: PayloadAction<Modal>) => {
 			state.modalIsShow = true;
 			state.modalContent = action.payload;
 		},
-		statusSetCartShow: (state, action: PayloadAction<boolean>) => { state.cartIsShow = action.payload },
-		statusSetCartView: (state, action: PayloadAction<boolean>) => { state.cartIsModal = action.payload },
-		statusSetCurrencyIsShow: (state, action: PayloadAction<boolean>) => { state.currencyIsShow = action.payload },
-		statusSetCurrency: (state, action: PayloadAction<Currency>) => { state.currency = action.payload },
+		statusSetCartShow: (state, action: PayloadAction<boolean>) => { state.cartIsShow = action.payload; },
+		statusSetCartView: (state, action: PayloadAction<boolean>) => { state.cartIsModal = action.payload; },
+		statusSetCurrencyIsShow: (state, action: PayloadAction<boolean>) => { state.currencyIsShow = action.payload; },
+		statusSetCurrency: (state, action: PayloadAction<Currency>) => { state.currency = action.payload; },
 	}
-})
+});
 
-const { actions, reducer } = statusSlice
+const { actions, reducer } = statusSlice;
 export default reducer;
 export const {
 	statusChangeCategory,

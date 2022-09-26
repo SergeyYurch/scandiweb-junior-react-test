@@ -1,8 +1,8 @@
-import React, { MouseEvent, Component, ReactNode } from 'react';
+import { Component } from 'react';
 
 import cn from 'classnames';
 
-import styles from './style.module.scss'
+import styles from './style.module.scss';
 import Button from '../../atoms/button/button';
 import { ReactComponent as ArrowRight } from '../../../icons/arrow-right.svg';
 import { ReactComponent as ArrowLeft } from '../../../icons/arrow-left.svg';
@@ -13,33 +13,33 @@ type OwnProps = {
 	className?: string;
 	gallery: string[];
 	name: string;
-}
+};
 type OwnState = {
 	currentImg: number
-}
+};
 
 class Carousel extends Component<OwnProps, OwnState> {
 	state = {
 		currentImg: 0
-	}
+	};
 
 	changeImg = (direction: 'right' | 'left') => {
-		const lengthGallery: number = this.props.gallery.length
+		const lengthGallery: number = this.props.gallery.length;
 		if (direction === 'right') {
 			this.setState((state) => {
-				let newImgIndex: number = this.state.currentImg + 1;
+				let newImgIndex: number = state.currentImg + 1;
 				if (newImgIndex === lengthGallery) newImgIndex = 0;
-				return { currentImg: newImgIndex }
-			})
+				return { currentImg: newImgIndex };
+			});
 		}
 		if (direction === 'left') {
 			this.setState((state) => {
-				let newImgIndex: number = this.state.currentImg - 1;
+				let newImgIndex: number = state.currentImg - 1;
 				if (newImgIndex < 0) newImgIndex = lengthGallery - 1;
-				return { currentImg: newImgIndex }
-			})
+				return { currentImg: newImgIndex };
+			});
 		}
-	}
+	};
 
 	render(): JSX.Element {
 		const {

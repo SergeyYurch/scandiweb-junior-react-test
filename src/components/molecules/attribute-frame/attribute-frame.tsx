@@ -2,8 +2,8 @@ import { Component } from 'react';
 
 import cn from 'classnames';
 
-import { Attribute, AttributeSet } from '../../../types/data.types'
-import styles from './style.module.scss'
+import { Attribute, AttributeSet } from '../../../types/data.types';
+import styles from './style.module.scss';
 
 type OwnProps = {
 	className?: string;
@@ -12,37 +12,37 @@ type OwnProps = {
 	initialAttr?: Attribute;
 	disabled?: boolean;
 	onSelectAttr?: (selected: { [id: string]: Attribute }) => void
-}
+};
 
 type OwnState = {
 	selectedAttrValue: string;
 	selectedAttrId: string;
-}
+};
 
 class AttributeFrame extends Component<OwnProps, OwnState> {
 	state = {
 		selectedAttrValue: '',
 		selectedAttrId: ''
-	}
+	};
 
 	componentDidMount = (): void => {
 		if (this.props.attributes && Object.entries(this.props.attributes).length !== 0) {
 			let initialAttr: Attribute;
 			const attrId: string = this.props.attributes.id;
-			this.setState({ selectedAttrId: attrId })
+			this.setState({ selectedAttrId: attrId });
 			this.props.initialAttr
 				?
 				initialAttr = this.props.initialAttr
 				:
 				initialAttr = this.props.attributes.items[0];
-			this.setState({ selectedAttrValue: initialAttr.value })
+			this.setState({ selectedAttrValue: initialAttr.value });
 		}
-	}
+	};
 
 	onSelect = (attrObj: { [id: string]: Attribute }): void => {
-		this.setState({ selectedAttrValue: attrObj[this.state.selectedAttrId].value })
+		this.setState({ selectedAttrValue: attrObj[this.state.selectedAttrId].value });
 		if (this.props.onSelectAttr) this.props.onSelectAttr(attrObj);
-	}
+	};
 
 	render(): JSX.Element {
 		const { className, modal, attributes, disabled } = this.props;
@@ -51,9 +51,9 @@ class AttributeFrame extends Component<OwnProps, OwnState> {
 
 		if (attributes) {
 			attrBtns = attributes.items.map((item) => {
-				let stylesItem: { backgroundColor: string, border?: string } = { backgroundColor: 'none' };
-				if (attributes.id === 'Color') { stylesItem.backgroundColor = item.value }
-				if (item.value.substring(0, 2).toLowerCase() === '#f') { stylesItem.border = '1px solid #ccc' } //added border for white elements
+				const stylesItem: { backgroundColor: string, border?: string } = { backgroundColor: 'none' };
+				if (attributes.id === 'Color') { stylesItem.backgroundColor = item.value; }
+				if (item.value.substring(0, 2).toLowerCase() === '#f') { stylesItem.border = '1px solid #ccc'; } //added border for white elements
 				return (
 					<button
 						key={item.id}
@@ -63,13 +63,13 @@ class AttributeFrame extends Component<OwnProps, OwnState> {
 							[styles.selected]: selectedAttrValue === item.value,
 						}
 						)}
-						onClick={() => { this.onSelect({ [this.state.selectedAttrId]: item }) }}
+						onClick={() => { this.onSelect({ [this.state.selectedAttrId]: item }); }}
 						style={stylesItem}
 					>
 						{attributes.type === 'text' && item.value}
 					</button>
-				)
-			})
+				);
+			});
 		}
 		return (
 			<div className={

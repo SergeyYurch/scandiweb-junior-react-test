@@ -14,14 +14,14 @@
 }
 
 .green {
-	background: #5ECE7B;
+	background: var(--color-green);
 	font-weight: 600;
 	font-size: 16px;
-	color: #FFFFFF;
+	color: var(--color-white);
 }
 
 .dissabledSt {
-	background: #acacac;
+	background: var(--color-disable);
 }
 
 .btn.dissabledSt {

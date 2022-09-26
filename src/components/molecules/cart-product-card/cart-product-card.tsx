@@ -11,7 +11,7 @@ import { ReactComponent as Dec } from '../../../icons/dec.svg';
 
 import { CartProduct, Price } from './../../../types/data.types';
 
-import styles from './style.module.scss'
+import styles from './style.module.scss';
 
 type OwnProps = {
 	modal?: boolean;
@@ -19,21 +19,21 @@ type OwnProps = {
 	price: Price,
 	className: string,
 	onUpdateProductCount: (id: string, oldCount: number, value: number) => void
-}
+};
 
 class CartProductCard extends Component<OwnProps> {
 
 	onUpdateProductCount = (value: number): void => {
-		const { count, id } = this.props.cartProduct
-		this.props.onUpdateProductCount(id, count, value)
-	}
+		const { count, id } = this.props.cartProduct;
+		this.props.onUpdateProductCount(id, count, value);
+	};
 
 	render(): JSX.Element {
 		const { modal, cartProduct, price: priceFromCart, className } = this.props;
 		const { count, selectedAttr, product } = cartProduct;
 		const { name, gallery, attributes, brand } = product;
 
-		const price: string = priceFromCart.currency.symbol + priceFromCart.amount
+		const price: string = priceFromCart.currency.symbol + priceFromCart.amount;
 
 		return (
 			<div className={cn(styles.cartProductCard, className, { [styles['modal']]: modal })}>

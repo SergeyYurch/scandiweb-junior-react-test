@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import cn from 'classnames';
 
-import styles from './style.module.scss'
+import styles from './style.module.scss';
 
 type OwnProps = {
 	className?: string;
@@ -10,7 +10,7 @@ type OwnProps = {
 	modal?: boolean;
 	name?: string;
 	brand?: string;
-}
+};
 
 class NameFrame extends Component<OwnProps> {
 	render(): JSX.Element {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ReactComponent as CartLogo } from '../../../icons/empty-cart.svg';
-import styles from './style.module.scss'
+import styles from './style.module.scss';
 
 interface OwnProps {
 	quantity: number;
@@ -9,7 +9,7 @@ interface OwnProps {
 
 class CartButton extends Component<OwnProps> {
 	render() {
-		const { quantity, onCartClick } = this.props
+		const { quantity, onCartClick } = this.props;
 		return (
 			<button onClick={onCartClick} className={styles.cartButton}>
 				<CartLogo />

@@ -17,14 +17,14 @@ type OwnProps = {
 	onBlur?: (e: SyntheticEvent<HTMLButtonElement>) => void;
 	onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 	onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
-}
+};
 
 class Button extends Component<OwnProps> {
 
 	onKeyDownE = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-		if (!(e.key === 'Escape')) { e.stopPropagation() };
+		if (!(e.key === 'Escape')) { e.stopPropagation(); }
 		if (this.props.onKeyDown) this.props.onKeyDown(e);
-	}
+	};
 
 	render(): JSX.Element {
 		const {
@@ -53,11 +53,11 @@ class Button extends Component<OwnProps> {
 				autoFocus={autoFocus}
 				onClick={onClick}
 				onBlur={onBlur}
-				onKeyDown={(e) => { this.onKeyDownE(e) }}
+				onKeyDown={(e) => { this.onKeyDownE(e); }}
 			>
 				{children}
 			</button>
-		)
+		);
 	}
 }
 export default Button;

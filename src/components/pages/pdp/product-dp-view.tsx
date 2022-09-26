@@ -6,9 +6,9 @@ import PriceFrame from '../../molecules/price-frame/price-frame';
 import NameFrame from '../../molecules/name-frame/name-frame';
 import ProductImg from '../../atoms/product-img/product-img';
 
-import { Currency, AttributeSet, Price, Product, SelectedAttr } from '../../../types/data.types';
+import { Currency, AttributeSet, Product, SelectedAttr } from '../../../types/data.types';
 
-import styles from './style.module.scss'
+import styles from './style.module.scss';
 import { createPriceRecord } from '../../../helpers/helpers';
 
 type OwnProps = {
@@ -19,38 +19,38 @@ type OwnProps = {
 	onAddToCart: () => void;
 	onSelectAttr: (attr: SelectedAttr) => void;
 	onChangeImg: (activeImg: string) => void;
-}
+};
 
 class ProductDPView extends Component<OwnProps> {
 
 	componentDidMount = (): void => {
 		if (this.props.product) {
-			const { gallery } = this.props.product
-			this.onChangeImg(gallery[0])
+			const { gallery } = this.props.product;
+			this.onChangeImg(gallery[0]);
 		}
-	}
+	};
 
 	onChangeImg = (activeImg: string): void => {
-		this.props.onChangeImg(activeImg)
-	}
+		this.props.onChangeImg(activeImg);
+	};
 
 	render() {
-		const { product, currency, activeImg, cleanDescriprion, onSelectAttr } = this.props
-		const { name, inStock, gallery, attributes, prices, brand } = product
-		let price: string = 'No price';
+		const { product, currency, activeImg, cleanDescriprion, onSelectAttr } = this.props;
+		const { name, inStock, gallery, attributes, prices, brand } = product;
+		let price = 'No price';
 		let gallerySet: JSX.Element[] = [];
 		let attributesSet: JSX.Element[] = [];
 
 		if (prices && currency) {
-			price = createPriceRecord(prices, currency)
+			price = createPriceRecord(prices, currency);
 		}
 
 		if (attributes && attributes.length > 0) {
 			attributesSet = attributes.map((attr: AttributeSet) => {
 				return (
 					<AttributeFrame key={attr.id} onSelectAttr={onSelectAttr} attributes={attr} />
-				)
-			})
+				);
+			});
 		}
 
 		if (gallery) {
@@ -59,8 +59,8 @@ class ProductDPView extends Component<OwnProps> {
 					<button key={i} className={styles.galleryItem} onClick={() => this.onChangeImg(el)} >
 						<ProductImg src={el} alt={name} />
 					</button>
-				)
-			})
+				);
+			});
 		}
 
 		return (
