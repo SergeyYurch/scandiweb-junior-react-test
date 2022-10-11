@@ -24,7 +24,8 @@ class CartAddButton extends Component<OwnProps> {
 		return (
 			<Button 
 				onClick={(e) => this.onAddCartClick(e)} 
-				disabled={disabled} className={className}
+				disabled={disabled} 
+				className={className}
 			>
 				<AddCartLogo />
 			</Button>

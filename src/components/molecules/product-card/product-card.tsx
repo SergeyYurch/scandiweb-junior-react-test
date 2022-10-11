@@ -31,15 +31,12 @@ class ProductCard extends Component<OwnProps> {
 			inStock, 
 			gallery, 
 			prices, 
-			brand, 
-			attributes } = product;
+			brand } = product;
 		const srcImg: string = gallery[0];
 		const price: string = createPriceRecord(prices, currency);
 		return (
 			<div className={styles.container}>
-				{(!attributes || attributes.length === 0)
-					&& inStock
-					&& <CartAddButton 
+				{	inStock	&& <CartAddButton 
 								className={styles.addCartBtn} 
 								disabled={!inStock} 
 								onAddCartClick={this.onAddCartClick} 

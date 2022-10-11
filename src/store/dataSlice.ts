@@ -111,10 +111,12 @@ export const dataSlice = createSlice({
 			.addCase(getCategoriesName.pending, state => { 
 				state.statusFetchingName = 'loading'; 
 			})
+			
 			.addCase(getCategoriesName.rejected,  (state, action) => { 
 				state.errorMessage=action.payload;
 				state.statusFetchingName = 'error'; 
 			})
+
 			.addCase(getCategoriesName.fulfilled, (state, action) => {
 				state.statusFetchingName = 'idle';
 				state.categories = action.payload.categories.map(el => el.name);
@@ -123,10 +125,12 @@ export const dataSlice = createSlice({
 			.addCase(getCategorySet.pending, state => { 
 				state.statusFetchingCategory = 'loading'; 
 			})
+
 			.addCase(getCategorySet.rejected, (state, action) => { 
 				state.errorMessage=action.payload;
 				state.statusFetchingCategory = 'error'; 
 			})
+
 			.addCase(getCategorySet.fulfilled, (state, action) => {
 				state.statusFetchingCategory = 'idle';
 				state.categorySet = action.payload;
@@ -135,9 +139,11 @@ export const dataSlice = createSlice({
 			.addCase(getProduct.pending, state => { 
 				state.statusFetchingProduct = 'loading'; 
 			})
+
 			.addCase(getProduct.rejected,  (state, action) => { 
 				state.errorMessage=action.payload;
 				state.statusFetchingProduct = 'error'; })
+
 			.addCase(getProduct.fulfilled, (state, action) => {
 				state.statusFetchingProduct = 'idle';
 				state.product = action.payload;
@@ -146,10 +152,12 @@ export const dataSlice = createSlice({
 			.addCase(getCurrencies.pending, state => { 
 				state.statusFetchingCurrencies = 'loading'; 
 			})
+
 			.addCase(getCurrencies.rejected, (state, action) => { 
 				state.errorMessage=action.payload;
 				state.statusFetchingCurrencies = 'error'; 
 			})
+
 			.addCase(getCurrencies.fulfilled, (state, action) => {
 				state.currencies = action.payload.currencies;
 				state.statusFetchingCurrencies = 'idle';

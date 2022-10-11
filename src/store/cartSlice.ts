@@ -26,19 +26,30 @@ const calculateQuantity = (state: CartState) => {
 	return quantity;
 };
 
-export const addToCartThunk = createAsyncThunk<
-	void, { attr?: SelectedAttr, idProd: string }, { state: RootState }
-	>(
+export const addToCartThunk 
+	= createAsyncThunk<void, { 
+		attr?: SelectedAttr, 
+		idProd: string 
+	}, { 
+		state: RootState 
+	}>(
 	'cart/addToCartThunk',
 	async (arg, thunkAPI) => {
 		const { attr, idProd } = arg;
+		const attrDefault:SelectedAttr = {};
 		const productInput: Product = await ApiServices.getProduct(idProd);
+		if (!attr) {
+			productInput.attributes?.forEach((el)=>{
+				attrDefault[el.name] = el.items[0];
+			});
+		}
+
 		const id = generateId();
 		const productToCart: CartProduct = {
 			id: id,
 			count: 1,
 			product: productInput,
-			selectedAttr: attr,
+			selectedAttr: attr ? attr : attrDefault
 		};
 		const productsInCart = thunkAPI.getState().cart.products;
 		if (productsInCart.length === 0) {
