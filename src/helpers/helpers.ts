@@ -24,7 +24,9 @@ export const createPriceRecord = (
 	const priceCurr: Price | undefined = prices.find((p) => {
 		return p.currency.label === currency.label;
 	});
-	if (priceCurr) price = priceCurr.currency.symbol + priceCurr.amount;
+	if (priceCurr) price = (
+		priceCurr.currency.symbol + priceCurr.amount.toFixed(2)
+		);
 	return price;
 };
 

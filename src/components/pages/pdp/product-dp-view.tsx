@@ -6,7 +6,11 @@ import PriceFrame from '../../molecules/price-frame/price-frame';
 import NameFrame from '../../molecules/name-frame/name-frame';
 import ProductImg from '../../atoms/product-img/product-img';
 
-import { Currency, AttributeSet, Product, SelectedAttr } from '../../../types/data.types';
+import { 
+	Currency, 
+	AttributeSet, 
+	Product, 
+	SelectedAttr } from '../../../types/data.types';
 
 import styles from './style.module.scss';
 import { createPriceRecord } from '../../../helpers/helpers';
