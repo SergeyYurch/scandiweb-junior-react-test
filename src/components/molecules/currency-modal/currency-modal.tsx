@@ -4,7 +4,9 @@ import cn from 'classnames';
 
 import { RootState } from '../../../store';
 import { Currency } from './../../../types/data.types';
-import { statusSetCurrencyIsShow, statusSetCurrency } from '../../../store/statusSlice';
+import { 
+	statusSetCurrencyIsShow, 
+	statusSetCurrency } from '../../../store/statusSlice';
 
 import styles from './style.module.scss';
 import React from 'react';
@@ -13,7 +15,9 @@ const mapState = (state: RootState) => ({
 	currency: state.status.currency,
 	currencies: state.data.currencies,
 });
-const connector = connect(mapState, { statusSetCurrencyIsShow, statusSetCurrency });
+const connector = connect(
+	mapState, 
+	{ statusSetCurrencyIsShow, statusSetCurrency });
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type OwnProps = { className?: string };
@@ -29,7 +33,8 @@ class CurrencyModal extends Component<Props, State> {
 		amount: 0
 	};
 
-	refButtons: React.RefObject<HTMLButtonElement>[] = this.props.currencies.map(() => React.createRef<HTMLButtonElement>());
+	refButtons: React.RefObject<HTMLButtonElement>[] = 
+		this.props.currencies.map(() => React.createRef<HTMLButtonElement>());
 
 	componentDidMount(): void {
 		this.setState({ amount: this.props.currencies.length });
@@ -89,7 +94,13 @@ class CurrencyModal extends Component<Props, State> {
 		}
 
 		return (
-			<div className={cn(styles.modalContainer, className)} onKeyDown={(e) => this.onKeyDown(e)} onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => e.stopPropagation()}>
+			<div 
+				className={cn(styles.modalContainer, className)} 
+				onKeyDown={(e) => this.onKeyDown(e)} 
+				onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+					e.stopPropagation();}
+				}
+			>
 				{currencyItems}
 			</div >
 		);

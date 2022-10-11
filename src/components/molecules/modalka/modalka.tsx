@@ -11,7 +11,8 @@ type OwnProps = {
 };
 
 class Modalka extends Component<OwnProps> {
-	refButtons: React.RefObject<HTMLButtonElement> = React.createRef<HTMLButtonElement>();
+	refButtons: React.RefObject<HTMLButtonElement> 
+		= React.createRef<HTMLButtonElement>();
 
 	componentDidMount(): void {
 		this.refButtons.current?.focus();
@@ -37,13 +38,27 @@ class Modalka extends Component<OwnProps> {
 
 		return (
 			<div
-				className={cn(styles.modalContainer, className, { [styles.active]: active })}
+				className={cn(
+					styles.modalContainer, 
+					className, 
+					{ [styles.active]: active }
+				)}
 				onClick={this.closeModal}
 				onKeyDown={this.onKeyDown}>
-				<div className={styles.content} onKeyDown={(e) => { this.onKeyDown(e); }}>
+				<div 
+					className={styles.content} 
+					onKeyDown={(e) => { this.onKeyDown(e); }}
+				>
 					<div>{title}</div>
 					<div>{message}</div>
-					<button className={styles.btn} ref={this.refButtons} onBlur={this.lostFocus} onClick={this.closeModal}>ok</button>
+					<button 
+						className={styles.btn} 
+						ref={this.refButtons} 
+						onBlur={this.lostFocus} 
+						onClick={this.closeModal}
+					>
+						ok
+					</button>
 				</div>
 			</div >
 		);

@@ -61,10 +61,18 @@ class Carousel extends Component<OwnProps, OwnState> {
 				</figure>
 				{!modal && gallery.length > 1 &&
 					<div className={styles.control}>
-						<Button className={styles.btn} onClick={() => this.changeImg('left')} variant='black' >
+						<Button 
+							className={styles.btn} 
+							onClick={() => this.changeImg('left')} 
+							variant='black' 
+						>
 							<ArrowLeft />
 						</Button>
-						<Button className={styles.btn} onClick={() => this.changeImg('right')} variant='black' >
+						<Button 
+							className={styles.btn} 
+							onClick={() => this.changeImg('right')} 
+							variant='black' 
+						>
 							<ArrowRight />
 						</Button>
 					</div>

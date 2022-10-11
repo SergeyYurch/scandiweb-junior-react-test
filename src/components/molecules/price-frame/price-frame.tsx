@@ -15,7 +15,12 @@ interface OwnProps {
 
 class PriceFrame extends Component<OwnProps> {
 	render(): JSX.Element {
-		const { className, showLabel, bold, disable, size = 'large' } = this.props;
+		const { 
+			className, 
+			showLabel, 
+			bold, 
+			disable, 
+			size = 'large' } = this.props;
 		return (
 			<div className={cn(styles.priceContainer, className)}>
 				{showLabel && <p className={styles.label}>Price</p>}

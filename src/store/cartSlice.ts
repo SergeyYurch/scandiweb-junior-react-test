@@ -26,7 +26,9 @@ const calculateQuantity = (state: CartState) => {
 	return quantity;
 };
 
-export const addToCartThunk = createAsyncThunk<void, { attr?: SelectedAttr, idProd: string }, { state: RootState }>(
+export const addToCartThunk = createAsyncThunk<
+	void, { attr?: SelectedAttr, idProd: string }, { state: RootState }
+	>(
 	'cart/addToCartThunk',
 	async (arg, thunkAPI) => {
 		const { attr, idProd } = arg;
@@ -42,12 +44,16 @@ export const addToCartThunk = createAsyncThunk<void, { attr?: SelectedAttr, idPr
 		if (productsInCart.length === 0) {
 			thunkAPI.dispatch(addProductToCart(productToCart));
 		} else {
-			const prodSameName: CartProduct[] = productsInCart.filter((prodIn) => prodIn.product['id'] === productInput['id']);
+			const prodSameName: CartProduct[] = productsInCart.filter(
+					(prodIn) => prodIn.product['id'] === productInput['id']);
 			if (prodSameName.length === 0) {
 				thunkAPI.dispatch(addProductToCart(productToCart));
 			} else {
 				if (!attr) {
-					thunkAPI.dispatch(updateProductInCart({ id: prodSameName[0].id, value: 1 }));
+					thunkAPI.dispatch(updateProductInCart({ 
+						id: prodSameName[0].id, 
+						value: 1 
+					}));
 					return;
 				}
 				let isExistInCart = false;
@@ -60,10 +66,15 @@ export const addToCartThunk = createAsyncThunk<void, { attr?: SelectedAttr, idPr
 						arrOfAttrInCart.push(JSON.stringify(attrInCart[key]));
 						strAttrToCart.push(JSON.stringify(attrToCart[key]));
 					}
-					const isEqual = (arrOfAttrInCart.join('') === strAttrToCart.join(''));
+					const isEqual = (
+						arrOfAttrInCart.join('') === strAttrToCart.join('')
+						);
 					if (isEqual) {
 						isExistInCart = true;
-						thunkAPI.dispatch(updateProductInCart({ id: prodIn.id, value: 1 }));
+						thunkAPI.dispatch(updateProductInCart({ 
+							id: prodIn.id, 
+							value: 1 
+						}));
 						return;
 					}
 				});
@@ -91,11 +102,15 @@ const cartSlice = createSlice({
 			localStorage.setItem('cart', JSON.stringify(state));
 		},
 		deleteProductFromCart: (state, action: PayloadAction<string>) => {
-			state.products = state.products.filter((prod: CartProduct) => !(prod.id === action.payload));
+			state.products = state.products.filter((prod: CartProduct) => {
+				return !(prod.id === action.payload);
+			});
 			state.quantity = calculateQuantity(state);
 			localStorage.setItem('cart', JSON.stringify(state));
 		},
-		updateProductInCart: (state, action: PayloadAction<{ id: string, value: number }>) => {
+		updateProductInCart: (
+			state, 
+			action: PayloadAction<{ id: string, value: number }>) => {
 			state.products = state.products.map((prod: CartProduct) => {
 				if (prod.id === action.payload.id) {
 					prod.count += action.payload.value;
@@ -110,8 +125,12 @@ const cartSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(addToCartThunk.fulfilled, state => { state.isAdded = 'ok'; })
-			.addCase(addToCartThunk.rejected, state => { state.isAdded = 'error'; });
+			.addCase(addToCartThunk.fulfilled, state => { 
+				state.isAdded = 'ok'; 
+			})
+			.addCase(addToCartThunk.rejected, state => { 
+				state.isAdded = 'error'; 
+			});
 	}
 });
 

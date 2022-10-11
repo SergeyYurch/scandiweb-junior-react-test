@@ -15,12 +15,33 @@ class ErrorMessageIcon extends Component <PropsFromRedux>{
 	render() {
 
 		return (
-			<div style={{ margin: '0 auto', textAlign: 'center', marginTop: '100px', width: '100%' }}>
+			<div style={{ 
+				'margin': '0 auto', 
+				'textAlign': 'center', 
+				'marginTop': '100px', 
+				'width': '100%' }}
+			>
 				<ErrorSVG />
-				<p style={{ 'textAlign': 'center', 'fontWeight': 'bold', 'fontSize': '20px' }}>
-					{this.props.errorMessage ? this.props.errorMessage: 'Unknown Error'}
+				<p style={{ 
+					'textAlign': 'center', 
+					'fontWeight': 'bold', 
+					'fontSize': '20px' }}
+				>
+					{this.props.errorMessage 
+					? this.props.errorMessage
+					: 'Unknown Error'}
 					</p>
-				<Link style={{ 'display': 'block', 'textAlign': 'center', 'fontWeight': 'bold', 'fontSize': '24px', 'marginTop': '30px' }} to="/">Back to main page</Link>
+				<Link 
+					style={{ 
+						'display': 'block', 
+						'textAlign': 'center', 
+						'fontWeight': 'bold', 
+						'fontSize': '24px', 
+						'marginTop': '30px' }} 
+					to="/"
+				>
+					Back to main page
+				</Link>
 			</div>
 		);
 	}

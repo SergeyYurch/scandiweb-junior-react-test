@@ -30,16 +30,26 @@ export const statusSlice = createSlice({
 	name: 'status',
 	initialState,
 	reducers: {
-		statusChangeCategory: (state, action: PayloadAction<string>) => { state.category = action.payload; },
+		statusChangeCategory: (state, action: PayloadAction<string>) => { 
+			state.category = action.payload; 
+		},
 		statusOnCloseModal: (state) => { state.modalIsShow = false; },
 		statusOnShowModal: (state, action: PayloadAction<Modal>) => {
 			state.modalIsShow = true;
 			state.modalContent = action.payload;
 		},
-		statusSetCartShow: (state, action: PayloadAction<boolean>) => { state.cartIsShow = action.payload; },
-		statusSetCartView: (state, action: PayloadAction<boolean>) => { state.cartIsModal = action.payload; },
-		statusSetCurrencyIsShow: (state, action: PayloadAction<boolean>) => { state.currencyIsShow = action.payload; },
-		statusSetCurrency: (state, action: PayloadAction<Currency>) => { state.currency = action.payload; },
+		statusSetCartShow: (state, action: PayloadAction<boolean>) => { 
+			state.cartIsShow = action.payload; 
+		},
+		statusSetCartView: (state, action: PayloadAction<boolean>) => { 
+			state.cartIsModal = action.payload; 
+		},
+		statusSetCurrencyIsShow: (state, action: PayloadAction<boolean>) => { 
+			state.currencyIsShow = action.payload; 
+		},
+		statusSetCurrency: (state, action: PayloadAction<Currency>) => { 
+			state.currency = action.payload; 
+		},
 	}
 });
 

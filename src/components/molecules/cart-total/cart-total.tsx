@@ -50,7 +50,11 @@ class CartTotal extends Component<OwnProps> {
 				}
 				<div className={styles.item}>
 					<p className={styles.total}>Total:</p>
-					<PriceFrame className={styles.value} price={totalStr} size={modal ? 'small' : 'large'} />
+					<PriceFrame 
+						className={styles.value} 
+						price={totalStr} 
+						size={modal ? 'small' : 'large'} 
+					/>
 				</div>
 			</div >
 		);

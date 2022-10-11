@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import * as ApiServices from '../sevices/api-services';
 import { statusSetCurrency } from './statusSlice';
-import { Product, Currency, CategoriesNames, Currencies } from '../types/data.types';
+import { 
+	Product, 
+	Currency, 
+	CategoriesNames, 
+	Currencies } from '../types/data.types';
 
 
 interface DataState {
@@ -17,7 +21,8 @@ interface DataState {
 	currencies: Currency[]
 }
 
-export const getCategoriesName = createAsyncThunk<CategoriesNames, undefined, {rejectValue:string}>(
+export const getCategoriesName 
+	= createAsyncThunk<CategoriesNames, undefined, {rejectValue:string}>(
 	'data/getCategoriesName',
 	async (_, {rejectWithValue}) => {
 			try {const data = await ApiServices.getCategoriesName();
@@ -28,7 +33,8 @@ export const getCategoriesName = createAsyncThunk<CategoriesNames, undefined, {r
 	}
 );
 
-export const getCategorySet = createAsyncThunk<Product[], string, {rejectValue:string}>(
+export const getCategorySet 
+	= createAsyncThunk<Product[], string, {rejectValue:string}>(
 	'data/getCategorySet',
 	async (category, {rejectWithValue}) => {
 	try {
@@ -40,7 +46,8 @@ export const getCategorySet = createAsyncThunk<Product[], string, {rejectValue:s
 }
 );
 
-export const getProduct = createAsyncThunk<Product, string, {rejectValue:string}>(
+export const getProduct 
+= createAsyncThunk<Product, string, {rejectValue:string}>(
 	'data/getProduct',
 	async (id: string, {rejectWithValue}) => {
 		try {	
@@ -54,7 +61,8 @@ export const getProduct = createAsyncThunk<Product, string, {rejectValue:string}
 );
 
 
-export const getCurrencies = createAsyncThunk<Currencies, undefined, {rejectValue:string}>(
+export const getCurrencies 
+	= createAsyncThunk<Currencies, undefined, {rejectValue:string}>(
 	'data/getCurrencies',
 	async (_, {rejectWithValue, dispatch} ) => {
 		try{ const data:Currencies = await ApiServices.getCurrencies();

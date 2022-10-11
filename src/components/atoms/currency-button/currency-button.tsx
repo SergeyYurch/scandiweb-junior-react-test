@@ -6,16 +6,15 @@ import { Currency } from './../../../types/data.types';
 
 import styles from './style.module.scss';
 
-
 interface OwmProps {
 	onCurrencyClick: () => void;
 	currency: Currency;
 	currencyIsShow?: boolean;
 }
 
-
 class CurrensyButton extends Component<OwmProps> {
-	ref: React.RefObject<HTMLButtonElement> = React.createRef<HTMLButtonElement>();
+	ref: React.RefObject<HTMLButtonElement> = 
+		React.createRef<HTMLButtonElement>();
 
 	onCurrencyClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.stopPropagation();
@@ -23,11 +22,17 @@ class CurrensyButton extends Component<OwmProps> {
 	};
 
 	render(): JSX.Element {
-		const { currencyIsShow, currency } = this.props;
+		const{ currencyIsShow, currency } = this.props;
 		return (
-			<button ref={this.ref} onClick={(e) => this.onCurrencyClick(e)} className={styles.currencyButton}>
+			<button 
+				ref={this.ref} 
+				onClick={(e) => this.onCurrencyClick(e)} 
+				className={styles.currencyButton}
+			>
 				<span>{currency.symbol}</span>
-				<Arrow className={currencyIsShow ? styles.currencyIsShow : styles.svg} />
+				<Arrow 
+				className={currencyIsShow ? styles.currencyIsShow : styles.svg} 
+				/>
 			</button>
 		);
 	}

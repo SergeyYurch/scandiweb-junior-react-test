@@ -6,6 +6,7 @@
 	],
 	"rules": {
 		"semi": "off",
+    "max-len":["warn", { "code": 80 }],
 		"@typescript-eslint/semi": [
 			"warn"
 		],

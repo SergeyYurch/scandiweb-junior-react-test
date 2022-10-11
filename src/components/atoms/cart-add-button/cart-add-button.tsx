@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ReactComponent as AddCartLogo } from '../../../icons/circle-cart-icon.svg';
+import { ReactComponent as AddCartLogo } 
+  from '../../../icons/circle-cart-icon.svg';
 
 import Button from '../button/button';
 
@@ -11,15 +12,20 @@ type OwnProps = {
 
 class CartAddButton extends Component<OwnProps> {
 
-	onAddCartClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-		e.stopPropagation();
-		this.props.onAddCartClick();
-	};
+	onAddCartClick = (
+		e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+	): void => {
+			e.stopPropagation();
+			this.props.onAddCartClick();
+		};
 
 	render(): JSX.Element {
 		const { className, disabled } = this.props;
 		return (
-			<Button onClick={(e) => this.onAddCartClick(e)} disabled={disabled} className={className}>
+			<Button 
+				onClick={(e) => this.onAddCartClick(e)} 
+				disabled={disabled} className={className}
+			>
 				<AddCartLogo />
 			</Button>
 		);

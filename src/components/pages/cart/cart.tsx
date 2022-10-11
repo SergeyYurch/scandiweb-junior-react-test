@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import CartProductCard from '../../molecules/cart-product-card/cart-product-card';
+import CartProductCard 
+	from '../../molecules/cart-product-card/cart-product-card';
 import CartTotal from '../../molecules/cart-total/cart-total';
 import Button from '../../atoms/button/button';
 import ErrorBoundary from '../../error-boundary/error-boundary';
 
 import { RootState } from '../../../store';
-import { updateProductInCart, deleteProductFromCart, clearCart } from '../../../store/cartSlice';
-import { statusSetCartView, statusSetCartShow, statusOnShowModal } from '../../../store/statusSlice';
+import { 
+	updateProductInCart, 
+	deleteProductFromCart, 
+	clearCart } from '../../../store/cartSlice';
+import { 
+	statusSetCartView, 
+	statusSetCartShow, 
+	statusOnShowModal } from '../../../store/statusSlice';
 import { Price } from '../../../types/data.types';
 import { getPrice } from '../../../helpers/helpers';
 
@@ -33,13 +40,19 @@ type OwnProps = { modal?: boolean };
 type Props = PropsFromRedux & OwnProps;
 
 class Cart extends Component<Props> {
-	refCart: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
+	refCart: React.RefObject<HTMLDivElement> 
+		= React.createRef<HTMLDivElement>();
 
 	componentDidUpdate = (): void => {
-		if (this.props.cartState.quantity === 0) this.props.statusSetCartShow(false);
+		if (this.props.cartState.quantity === 0) {
+			this.props.statusSetCartShow(false);
+		}
 	};
 
-	onUpdateProductCount = (id: string, oldCount: number, value: number): void => {
+	onUpdateProductCount = (
+		id: string, 
+		oldCount: number, 
+		value: number): void => {
 		if ((oldCount + value) < 1) {
 			this.props.deleteProductFromCart(id);
 		} else {
@@ -48,7 +61,9 @@ class Cart extends Component<Props> {
 	};
 
 	onOrder = (): void => {
-		this.props.statusOnShowModal({ title: 'Cart', message: 'Thanks for shopping' });
+		this.props.statusOnShowModal({ 
+			'title': 'Cart', 
+			'message': 'Thanks for shopping' });
 		this.props.clearCart();
 		this.onCloseCart();
 	};
@@ -105,11 +120,16 @@ class Cart extends Component<Props> {
 		});
 
 		return (
-			<div className={modal ? styles.cartOverlayModal : styles.cartOverlay} >
+			<div className={
+					modal ? styles.cartOverlayModal : styles.cartOverlay
+				} 
+			>
 				<div className={styles.cartWrapper}>
 					<div
 						tabIndex={0}
-						className={modal ? styles.modalContainer : styles.cartContainer}
+						className={
+							modal ? styles.modalContainer : styles.cartContainer
+						}
 						onClick={(e) => { e.stopPropagation(); }}
 						ref={this.refCart}
 						onKeyDown={(e) => this.onKeyDownContainer(e)}
@@ -117,8 +137,18 @@ class Cart extends Component<Props> {
 						<ErrorBoundary>
 							<>
 								<div className={styles.headerCart}>
-									{modal && <h2 className={styles.headerCart}>My Bag, <span>{quantity} items</span></h2>}
-									{!modal && <h2 className={styles.headerCart}>Cart</h2>}
+									{modal 
+									&& <h2 
+											className={styles.headerCart}
+											>
+												My Bag, <span>
+														{quantity} items
+													</span>
+											</h2>}
+									{!modal 
+									&& <h2 className={styles.headerCart}>
+											Cart
+										</h2>}
 								</div>
 
 								{products &&
@@ -127,12 +157,38 @@ class Cart extends Component<Props> {
 									</div>
 								}
 
-								<CartTotal modal={modal} quantity={quantity} currencySymbol={currency.symbol} total={total} className={styles.total} />
+								<CartTotal 
+									modal={modal} 
+									quantity={quantity} 
+									currencySymbol={currency.symbol} 
+									total={total} 
+									className={styles.total} 
+								/>
 
 								<div className={styles.control}>
-									{!modal && <Button className={styles.btn} autoFocus onClick={this.onOrder}>ORDER</Button>}
-									{modal && <Button className={styles.btn} onClick={this.onViewBag}>VIEW BAG</Button>}
-									{modal && <Button className={styles.btn} onKeyDown={this.onKeyDownLastElem} onClick={this.onCheckOut}>CHEK OUT</Button>}
+									{!modal && <Button 
+										className={styles.btn} 
+										autoFocus 
+										onClick={this.onOrder}
+										>
+											ORDER
+										</Button>
+									}
+									{modal && <Button 
+											className={styles.btn} 
+											onClick={this.onViewBag}
+										>
+											VIEW BAG
+										</Button>
+									}
+									{modal && <Button 
+										className={styles.btn} 
+										onKeyDown={this.onKeyDownLastElem} 
+										onClick={this.onCheckOut}
+										>
+											CHEK OUT
+										</Button>
+									}
 								</div>
 							</>
 						</ErrorBoundary>

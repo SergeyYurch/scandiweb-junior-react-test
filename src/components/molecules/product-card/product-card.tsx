@@ -25,21 +25,45 @@ class ProductCard extends Component<OwnProps> {
 
 	render(): JSX.Element {
 		const { category, product, currency } = this.props;
-		const { id, name, inStock, gallery, prices, brand, attributes } = product;
+		const { 
+			id, 
+			name, 
+			inStock, 
+			gallery, 
+			prices, 
+			brand, 
+			attributes } = product;
 		const srcImg: string = gallery[0];
 		const price: string = createPriceRecord(prices, currency);
 		return (
 			<div className={styles.container}>
 				{(!attributes || attributes.length === 0)
 					&& inStock
-					&& <CartAddButton className={styles.addCartBtn} disabled={!inStock} onAddCartClick={this.onAddCartClick} />
+					&& <CartAddButton 
+								className={styles.addCartBtn} 
+								disabled={!inStock} 
+								onAddCartClick={this.onAddCartClick} 
+							/>
 				}
 				<Link to={`/${category}/${id}`} className={styles.link}>
 					<div className={styles.cardContent}>
-						<ProductImg disable={!inStock} src={srcImg} alt={name} />
+						<ProductImg 
+							disable={!inStock} 
+							src={srcImg} 
+							alt={name} 
+						/>
 						<div className={styles.description}>
-							<NameFrame disable={!inStock} variant='horizontal' name={name} brand={brand} />
-							<PriceFrame disable={!inStock} size='small' price={price} />
+							<NameFrame 
+								disable={!inStock} 
+								variant='horizontal' 
+								name={name} 
+								brand={brand} 
+							/>
+							<PriceFrame 
+								disable={!inStock} 
+								size='small' 
+								price={price} 
+							/>
 						</div>
 					</div>
 				</Link>

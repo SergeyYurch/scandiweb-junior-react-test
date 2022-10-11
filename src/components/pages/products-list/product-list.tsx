@@ -32,9 +32,15 @@ class ProductsList extends Component<Props> {
 	}
 
 	render(): JSX.Element {
-		const { statusFetching, categorySet, currency, addToCartThunk } = this.props;
+		const { 
+			statusFetching, 
+			categorySet, 
+			currency, 
+			addToCartThunk } = this.props;
 		const categoryName: string = this.props.match.params.category;
-		const printCategoryName: string = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
+		const printCategoryName: string = (
+			categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
+			);
 		let productCards: JSX.Element[] = [];
 		if (currency && categorySet && categorySet.length > 0) {
 			productCards = categorySet.map((prod: Product, i) =>

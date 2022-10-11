@@ -25,7 +25,10 @@ class CategoryMenu extends Component<Props, RootState> {
 		this.props.setCurrentCategory(category);
 	}
 
-	changeMenu = (e: React.MouseEvent<HTMLAnchorElement>, link: string): void => {
+	changeMenu = (
+		e: React.MouseEvent<HTMLAnchorElement>, 
+		link: string
+	): void => {
 		if (link !== this.props.currentCategory) {
 			this.props.setCurrentCategory(link);
 			this.props.getCategorySet(link);
@@ -40,7 +43,16 @@ class CategoryMenu extends Component<Props, RootState> {
 				const link: string = el.toLowerCase();
 				return (
 					<li key={i}>
-						<NavLink to={'/' + link} activeClassName={styles.active} className={styles.item} onClick={(e: React.MouseEvent<HTMLAnchorElement>) => this.changeMenu(e, link)}>
+						<NavLink 
+							to={'/' + link} 
+							activeClassName={styles.active} 
+							className={styles.item} 
+							onClick={
+								(e: React.MouseEvent<HTMLAnchorElement>) => {
+									this.changeMenu(e, link);
+								}
+							}
+						>
 							{el}
 						</NavLink >
 					</li>
@@ -51,8 +63,10 @@ class CategoryMenu extends Component<Props, RootState> {
 		return (
 			<nav className={styles.wrapper} >
 				<ul>
-					{statusFetching === 'loading' && <span> Loading...</span>}
-					{statusFetching === 'error' && <span> Error loading...</span>}
+					{statusFetching === 'loading' 
+						&& <span> Loading...</span>}
+					{statusFetching === 'error' 
+						&& <span> Error loading...</span>}
 					{menu}
 				</ul>
 			</nav >

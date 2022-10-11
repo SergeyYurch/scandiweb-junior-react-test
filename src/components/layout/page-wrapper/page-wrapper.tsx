@@ -8,7 +8,13 @@ import Modalka from '../../molecules/modalka/modalka';
 import Cart from '../../pages/cart/cart';
 
 import { RootState } from '../../../store';
-import { statusSetCartShow, statusSetCurrencyIsShow, statusSetCartView, statusOnCloseModal, statusOnShowModal } from '../../../store/statusSlice';
+import { 
+	statusSetCartShow, 
+	statusSetCurrencyIsShow, 
+	statusSetCartView, 
+	statusOnCloseModal, 
+	statusOnShowModal 
+} from '../../../store/statusSlice';
 
 import styles from './style.module.scss';
 import ErrorBoundary from '../../error-boundary/error-boundary';
@@ -21,14 +27,22 @@ const mapState = (state: RootState) => ({
 	cartIsModal: state.status.cartIsModal,
 	modalIsShow: state.status.modalIsShow,
 	modalContent: state.status.modalContent
-})
+});
 
-const connector = connect(mapState, { statusSetCurrencyIsShow, statusSetCartShow, statusSetCartView, statusOnCloseModal, statusOnShowModal })
+const connector = connect(
+	mapState, 
+	{ 
+		statusSetCurrencyIsShow, 
+		statusSetCartShow, 
+		statusSetCartView, 
+		statusOnCloseModal, 
+		statusOnShowModal 
+	});
 
-type PropsFromRedux = ConnectedProps<typeof connector>
+type PropsFromRedux = ConnectedProps<typeof connector>;
 type OwnProps = {
 	children?: ReactNode;
-}
+};
 type Props = PropsFromRedux & OwnProps;
 
 class PageWrapper extends Component<Props, RootState> {
@@ -38,17 +52,26 @@ class PageWrapper extends Component<Props, RootState> {
 			this.props.statusSetCartShow(false);
 			this.props.statusSetCartView(true);
 		}
-	}
+	};
 
 	onKeyDownHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
 		if (e.key === 'Escape') this.closeModal();
-	}
+	};
 
 	render(): JSX.Element {
-		const { cartIsShow, currencyIsShow, cartIsModal, modalIsShow, modalContent } = this.props
+		const { 
+			cartIsShow, 
+			currencyIsShow, 
+			cartIsModal, 
+			modalIsShow, 
+			modalContent } = this.props;
 		return (
 			<ErrorBoundary>
-				<div className={styles.container} onClick={() => this.closeModal()} onKeyDown={(e) => { this.onKeyDownHandler(e) }}>
+				<div 
+					className={styles.container} 
+					onClick={() => this.closeModal()} 
+					onKeyDown={(e) => { this.onKeyDownHandler(e);}}
+				>
 					<header className={styles.header}>
 						<div className={styles.content}>
 							<CategoryMenu />
@@ -62,7 +85,10 @@ class PageWrapper extends Component<Props, RootState> {
 
 					<div className={styles.childContainer}>
 						<div className={styles.child}>
-							{(cartIsShow && !cartIsModal) ? <Cart /> : this.props.children}
+							{(cartIsShow && !cartIsModal) 
+								? <Cart /> 
+								: this.props.children
+							}
 						</div>
 					</div>
 					{modalIsShow && <Modalka

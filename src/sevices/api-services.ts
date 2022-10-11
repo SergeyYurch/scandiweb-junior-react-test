@@ -44,7 +44,8 @@ export const getCategoriesName = async () => {
 };
 
 export const getCategory = async (category: string) => {
-	const query = new Query<string, {category:Category}, boolean>("category", true)
+	const query = (
+		new Query<string, {category:Category}, boolean>("category", true))
 		.addArgument("input", "CategoryInput", { title: category })
 		.addField(new Field("name", true))
 		.addField((new Field("products", true))
@@ -64,7 +65,8 @@ export const getCategory = async (category: string) => {
 };
 
 export const getProduct = async (id: string) => {
-	const query = new Query<string, {product:Product}, boolean>("product", false)
+	const query = (
+		new Query<string, {product:Product}, boolean>("product", false))
 		.addArgument("id", "String!", id)
 		.addFieldList([
 			"id",

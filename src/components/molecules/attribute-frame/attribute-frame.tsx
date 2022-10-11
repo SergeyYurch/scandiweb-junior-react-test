@@ -26,21 +26,25 @@ class AttributeFrame extends Component<OwnProps, OwnState> {
 	};
 
 	componentDidMount = (): void => {
-		if (this.props.attributes && Object.entries(this.props.attributes).length !== 0) {
-			let initialAttr: Attribute;
-			const attrId: string = this.props.attributes.id;
-			this.setState({ selectedAttrId: attrId });
-			this.props.initialAttr
-				?
-				initialAttr = this.props.initialAttr
-				:
-				initialAttr = this.props.attributes.items[0];
-			this.setState({ selectedAttrValue: initialAttr.value });
+		if (this.props.attributes 
+			&& Object.entries(this.props.attributes).length !== 0
+			) {
+				let initialAttr: Attribute;
+				const attrId: string = this.props.attributes.id;
+				this.setState({ selectedAttrId: attrId });
+				this.props.initialAttr
+					?
+					initialAttr = this.props.initialAttr
+					:
+					initialAttr = this.props.attributes.items[0];
+				this.setState({ selectedAttrValue: initialAttr.value });
 		}
 	};
 
 	onSelect = (attrObj: { [id: string]: Attribute }): void => {
-		this.setState({ selectedAttrValue: attrObj[this.state.selectedAttrId].value });
+		this.setState({ 
+			selectedAttrValue: attrObj[this.state.selectedAttrId].value 
+		});
 		if (this.props.onSelectAttr) this.props.onSelectAttr(attrObj);
 	};
 
@@ -51,9 +55,18 @@ class AttributeFrame extends Component<OwnProps, OwnState> {
 
 		if (attributes) {
 			attrBtns = attributes.items.map((item) => {
-				const stylesItem: { backgroundColor: string, border?: string } = { backgroundColor: 'none' };
-				if (attributes.id === 'Color') { stylesItem.backgroundColor = item.value; }
-				if (item.value.substring(0, 2).toLowerCase() === '#f') { stylesItem.border = '1px solid #ccc'; } //added border for white elements
+				const stylesItem: { 
+					backgroundColor: string, 
+					border?: string 
+				} = { 
+						backgroundColor: 'none' 
+					};
+				if (attributes.id === 'Color') { 
+					stylesItem.backgroundColor = item.value; 
+				}
+				if (item.value.substring(0, 2).toLowerCase() === '#f') { 
+					stylesItem.border = '1px solid #ccc'; 
+				} 
 				return (
 					<button
 						key={item.id}
@@ -63,7 +76,9 @@ class AttributeFrame extends Component<OwnProps, OwnState> {
 							[styles.selected]: selectedAttrValue === item.value,
 						}
 						)}
-						onClick={() => { this.onSelect({ [this.state.selectedAttrId]: item }); }}
+						onClick={() => { 
+							this.onSelect({[this.state.selectedAttrId]: item});
+						}}
 						style={stylesItem}
 					>
 						{attributes.type === 'text' && item.value}

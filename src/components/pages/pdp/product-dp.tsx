@@ -8,7 +8,10 @@ import { getProduct } from '../../../store/dataSlice';
 import Spinner from '../../molecules/spinner/spinner';
 import ErrorMessageIcon from '../../molecules/error-message/error-message';
 import ProductDPView from './product-dp-view';
-import { addProductToCart, updateProductInCart, addToCartThunk } from '../../../store/cartSlice';
+import { 
+	addProductToCart, 
+	updateProductInCart, 
+	addToCartThunk } from '../../../store/cartSlice';
 import { CleanHtml, SelectedAttr } from '../../../types/data.types';
 import { toCleanDescription } from '../../../helpers/helpers';
 
@@ -17,7 +20,13 @@ const mapState = (state: RootState) => ({
 	statusFetchingProduct: state.data.statusFetchingProduct,
 	currency: state.status.currency,
 });
-const connector = connect(mapState, { getProduct, addProductToCart, updateProductInCart, addToCartThunk });
+const connector = connect(
+	mapState, 
+	{ getProduct, 
+		addProductToCart, 
+		updateProductInCart, 
+		addToCartThunk }
+	);
 
 type ProductParam = { id: string };
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -49,7 +58,10 @@ class ProductDP extends Component<Props, State> {
 	};
 
 	onAddToCart = (): void => {
-		this.props.addToCartThunk({ attr: this.state.attributes, idProd: this.props.thisProduct.id });
+		this.props.addToCartThunk({ 
+			attr: this.state.attributes, 
+			idProd: this.props.thisProduct.id 
+		});
 	};
 
 	render(): JSX.Element {
@@ -59,7 +71,8 @@ class ProductDP extends Component<Props, State> {
 			cleanHtml = toCleanDescription(thisProduct.description);}
 		return (
 			<>
-				{(statusFetchingProduct === 'loading' || !thisProduct) && <Spinner />}
+				{(statusFetchingProduct === 'loading' || !thisProduct) 
+					&& <Spinner />}
 				{statusFetchingProduct === 'error' && <ErrorMessageIcon />}
 				{statusFetchingProduct === 'idle' && thisProduct &&
 					< ProductDPView

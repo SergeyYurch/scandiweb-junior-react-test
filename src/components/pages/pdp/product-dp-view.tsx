@@ -35,7 +35,12 @@ class ProductDPView extends Component<OwnProps> {
 	};
 
 	render() {
-		const { product, currency, activeImg, cleanDescriprion, onSelectAttr } = this.props;
+		const { 
+			product, 
+			currency, 
+			activeImg, 
+			cleanDescriprion, 
+			onSelectAttr } = this.props;
 		const { name, inStock, gallery, attributes, prices, brand } = product;
 		let price = 'No price';
 		let gallerySet: JSX.Element[] = [];
@@ -48,7 +53,11 @@ class ProductDPView extends Component<OwnProps> {
 		if (attributes && attributes.length > 0) {
 			attributesSet = attributes.map((attr: AttributeSet) => {
 				return (
-					<AttributeFrame key={attr.id} onSelectAttr={onSelectAttr} attributes={attr} />
+					<AttributeFrame 
+						key={attr.id} 
+						onSelectAttr={onSelectAttr} 
+						attributes={attr} 
+					/>
 				);
 			});
 		}
@@ -56,7 +65,11 @@ class ProductDPView extends Component<OwnProps> {
 		if (gallery) {
 			gallerySet = gallery.map((el: string, i: number): JSX.Element => {
 				return (
-					<button key={i} className={styles.galleryItem} onClick={() => this.onChangeImg(el)} >
+					<button 
+						key={i} 
+						className={styles.galleryItem} 
+						onClick={() => this.onChangeImg(el)} 
+					>
 						<ProductImg src={el} alt={name} />
 					</button>
 				);
@@ -75,11 +88,29 @@ class ProductDPView extends Component<OwnProps> {
 						</figure>
 					)}
 					<div className={styles.productDetails}>
-						<NameFrame className={styles.name} variant='big' name={name} brand={brand} />
+						<NameFrame 
+							className={styles.name} 
+							variant='big' name={name} 
+							brand={brand} 
+						/>
 						{attributesSet}
-						<PriceFrame showLabel bold className={styles.price} price={price} />
-						<Button className={styles.addToCartBtn} autoFocus disabled={!inStock} onClick={this.props.onAddToCart}>ADD TO CART</Button>
-						<div className={styles.description} dangerouslySetInnerHTML={cleanDescriprion}>
+						<PriceFrame 
+							showLabel 
+							bold 
+							className={styles.price} price={price} 
+						/>
+						<Button 
+							className={styles.addToCartBtn} 
+							autoFocus 
+							disabled={!inStock} 
+							onClick={this.props.onAddToCart}
+						>
+							ADD TO CART
+						</Button>
+						<div 
+							className={styles.description} 
+							dangerouslySetInnerHTML={cleanDescriprion}
+						>
 						</div>
 					</div>
 				</div>

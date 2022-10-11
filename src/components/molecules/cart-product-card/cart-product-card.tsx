@@ -29,20 +29,45 @@ class CartProductCard extends Component<OwnProps> {
 	};
 
 	render(): JSX.Element {
-		const { modal, cartProduct, price: priceFromCart, className } = this.props;
+		const { 
+			modal, 
+			cartProduct, 
+			price: priceFromCart, 
+			className } = this.props;
 		const { count, selectedAttr, product } = cartProduct;
 		const { name, gallery, attributes, brand } = product;
 
-		const price: string = priceFromCart.currency.symbol + priceFromCart.amount;
+		const price: string = (
+			priceFromCart.currency.symbol + priceFromCart.amount);
 
 		return (
-			<div className={cn(styles.cartProductCard, className, { [styles['modal']]: modal })}>
+			<div 
+				className={cn(
+					styles.cartProductCard, 
+					className, 
+					{ [styles['modal']]: modal }
+					)
+				}
+			>
 
 				<div className={styles.productDetails}>
-					<PriceFrame bold className={styles.price} price={price} size={modal ? 'small' : 'large'} />
-					<NameFrame className={styles.name} variant={modal ? 'small' : 'big'} name={name} brand={brand} />
+					<PriceFrame 
+						bold 
+						className={styles.price} 
+						price={price} 
+						size={modal ? 'small' : 'large'} 
+					/>
+					<NameFrame 
+						className={styles.name} 
+						variant={modal ? 'small' : 'big'} 
+						name={name} 
+						brand={brand} 
+					/>
 					{
-						selectedAttr && attributes && attributes.length > 0 && attributes.map(attr => <AttributeFrame
+						selectedAttr 
+						&& attributes 
+						&& attributes.length > 0 
+						&& attributes.map(attr => <AttributeFrame
 							key={attr.id}
 							disabled
 							modal={modal}
@@ -54,11 +79,19 @@ class CartProductCard extends Component<OwnProps> {
 				</div>
 
 				<div className={styles.countControl}>
-					<Button className={styles.countBtn} onClick={() => this.onUpdateProductCount(1)} variant='transparent'>
+					<Button 
+						className={styles.countBtn} 
+						onClick={() => this.onUpdateProductCount(1)} 
+						variant='transparent'
+					>
 						<Inc className={styles.btnCountIcon} />
 					</Button>
 					<div className={styles.count}>{count}</div>
-					<Button className={styles.countBtn} onClick={() => this.onUpdateProductCount(-1)} variant='transparent'>
+					<Button 
+						className={styles.countBtn} 
+						onClick={() => this.onUpdateProductCount(-1)} 
+						variant='transparent'
+					>
 						<Dec className={styles.btnCountIcon} />
 					</Button>
 				</div>

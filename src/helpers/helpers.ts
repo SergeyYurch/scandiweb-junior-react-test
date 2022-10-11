@@ -1,10 +1,14 @@
 import dompurify from 'dompurify';
 import { CleanHtml, Currency, Price, Product } from '../types/data.types';
 
-export const generateId = (): string => Math.random().toString(16).substring(2, 9);
+export const generateId = ():string => {
+	return Math.random().toString(16).substring(2, 9);
+};
 
 export const getPrice = (product: Product, currency: Currency): Price => {
-	const priceCurr: Price | undefined = product.prices.find((p) => p.currency.label === currency.label);
+	const priceCurr: Price | undefined = product.prices.find((p) => {
+		return p.currency.label === currency.label;
+	});
 
 	if (priceCurr) {
 		return priceCurr;
@@ -13,15 +17,21 @@ export const getPrice = (product: Product, currency: Currency): Price => {
 	}
 };
 
-export const createPriceRecord = (prices: Price[], currency: Currency): string => {
+export const createPriceRecord = (
+	prices: Price[], 
+	currency: Currency): string => {
 	let price = 'No price';
-	const priceCurr: Price | undefined = prices.find((p) => p.currency.label === currency.label);
+	const priceCurr: Price | undefined = prices.find((p) => {
+		return p.currency.label === currency.label;
+	});
 	if (priceCurr) price = priceCurr.currency.symbol + priceCurr.amount;
 	return price;
 };
 
 
 export const toCleanDescription = (description: string): CleanHtml => {
-	const cleanDescriprion = dompurify.sanitize(description, { FORCE_BODY: true });
+	const cleanDescriprion = (
+		dompurify.sanitize(description, { FORCE_BODY: true })
+		);
 	return ({ __html: cleanDescriprion });
 };
