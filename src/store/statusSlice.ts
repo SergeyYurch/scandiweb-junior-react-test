@@ -9,6 +9,7 @@ interface StatusState {
 	cartIsModal: boolean;
 	currencyIsShow: boolean;
 	cartIsShow: boolean;
+	cartPageIsShow: boolean;
 }
 
 type Modal = {
@@ -24,6 +25,7 @@ const initialState: StatusState = {
 	cartIsModal: true,
 	currencyIsShow: false,
 	cartIsShow: false,
+	cartPageIsShow: false,
 };
 
 export const statusSlice = createSlice({
@@ -50,6 +52,9 @@ export const statusSlice = createSlice({
 		statusSetCurrency: (state, action: PayloadAction<Currency>) => { 
 			state.currency = action.payload; 
 		},
+		statusSetCartPageShow: (state, action: PayloadAction<boolean>) => { 
+			state.cartPageIsShow = action.payload; 
+		},
 	}
 });
 
@@ -62,5 +67,6 @@ export const {
 	statusSetCartShow,
 	statusSetCurrencyIsShow,
 	statusSetCurrency,
-	statusSetCartView
+	statusSetCartView,
+	statusSetCartPageShow
 } = actions;

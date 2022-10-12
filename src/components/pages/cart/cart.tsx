@@ -13,7 +13,8 @@ import {
 	deleteProductFromCart, 
 	clearCart } from '../../../store/cartSlice';
 import { 
-	statusSetCartView, 
+	statusSetCartView,
+	statusSetCartPageShow, 
 	statusSetCartShow, 
 	statusOnShowModal } from '../../../store/statusSlice';
 import { Price } from '../../../types/data.types';
@@ -31,6 +32,7 @@ const connector = connect(mapState, {
 	deleteProductFromCart,
 	clearCart,
 	statusSetCartView,
+	statusSetCartPageShow,
 	statusSetCartShow,
 	statusOnShowModal
 });
@@ -70,10 +72,12 @@ class Cart extends Component<Props> {
 
 	onViewBag = (): void => {
 		this.props.statusSetCartView(false);
+		this.props.statusSetCartPageShow(true);
 	};
 
 	onCloseCart = (): void => {
 		this.props.statusSetCartShow(false);
+		this.props.statusSetCartPageShow(false);
 		this.props.statusSetCartView(true);
 	};
 

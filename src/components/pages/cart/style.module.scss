@@ -2,7 +2,7 @@
 
 .cartOverlayModal {
 	background-color: rgb(0, 0, 0, 0.4);
-	z-index: 10;
+	z-index: 40;
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -83,7 +83,7 @@
 .modalContainer {
 	overflow-y: hidden;
 	background-color: var(--color-white);
-	z-index: 20;
+	z-index: 130;
 	position: absolute;
 	top: 0;
 	right: 72px;

@@ -13,7 +13,8 @@ import {
 	statusSetCurrencyIsShow, 
 	statusSetCartView, 
 	statusOnCloseModal, 
-	statusOnShowModal 
+	statusOnShowModal,
+	statusSetCartPageShow
 } from '../../../store/statusSlice';
 
 import styles from './style.module.scss';
@@ -24,6 +25,7 @@ import CurrencyModal from '../../molecules/currency-modal/currency-modal';
 const mapState = (state: RootState) => ({
 	currencyIsShow: state.status.currencyIsShow,
 	cartIsShow: state.status.cartIsShow,
+	cartPageIsShow: state.status.cartPageIsShow,
 	cartIsModal: state.status.cartIsModal,
 	modalIsShow: state.status.modalIsShow,
 	modalContent: state.status.modalContent
@@ -36,7 +38,8 @@ const connector = connect(
 		statusSetCartShow, 
 		statusSetCartView, 
 		statusOnCloseModal, 
-		statusOnShowModal 
+		statusOnShowModal,
+		statusSetCartPageShow 
 	});
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -54,6 +57,14 @@ class PageWrapper extends Component<Props, RootState> {
 		}
 	};
 
+	closeCart = (): void => {
+		console.log('Close Cart');
+		if (this.props.cartPageIsShow){
+			
+			this.props.statusSetCartPageShow(false);
+		}
+	};
+
 	onKeyDownHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
 		if (e.key === 'Escape') this.closeModal();
 	};
@@ -64,7 +75,8 @@ class PageWrapper extends Component<Props, RootState> {
 			currencyIsShow, 
 			cartIsModal, 
 			modalIsShow, 
-			modalContent } = this.props;
+			modalContent,
+			cartPageIsShow } = this.props;
 		return (
 			<ErrorBoundary>
 				<div 
@@ -74,7 +86,7 @@ class PageWrapper extends Component<Props, RootState> {
 				>
 					<header className={styles.header}>
 						<div className={styles.content}>
-							<CategoryMenu />
+							<CategoryMenu closeCart ={this.closeCart} />
 							<Logo />
 							<ActionMenu />
 							{currencyIsShow && <CurrencyModal />}
@@ -85,7 +97,7 @@ class PageWrapper extends Component<Props, RootState> {
 
 					<div className={styles.childContainer}>
 						<div className={styles.child}>
-							{(cartIsShow && !cartIsModal) 
+							{(cartPageIsShow) 
 								? <Cart /> 
 								: this.props.children
 							}

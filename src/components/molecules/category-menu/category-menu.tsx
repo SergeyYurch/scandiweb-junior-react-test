@@ -16,7 +16,10 @@ const connector = connect(mapState, { getCategorySet, setCurrentCategory });
 
 type CategoryParam = { category: string };
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux & RouteComponentProps<CategoryParam>;
+type OwnPropsFromRedux = {closeCart:()=>void};
+type Props = PropsFromRedux 
+	& RouteComponentProps<CategoryParam> 
+	& OwnPropsFromRedux;
 
 class CategoryMenu extends Component<Props, RootState> {
 
@@ -24,6 +27,13 @@ class CategoryMenu extends Component<Props, RootState> {
 		const category: string = this.props.match.params.category;
 		this.props.setCurrentCategory(category);
 	}
+
+	onClickMenu=(
+		e: React.MouseEvent<HTMLAnchorElement>, 
+		link: string):void => {
+		this.props.closeCart();
+		this.changeMenu(e, link);
+	};
 
 	changeMenu = (
 		e: React.MouseEvent<HTMLAnchorElement>, 
@@ -49,7 +59,7 @@ class CategoryMenu extends Component<Props, RootState> {
 							className={styles.item} 
 							onClick={
 								(e: React.MouseEvent<HTMLAnchorElement>) => {
-									this.changeMenu(e, link);
+									this.onClickMenu(e, link);
 								}
 							}
 						>
