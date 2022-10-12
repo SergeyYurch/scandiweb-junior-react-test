@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React,{ Component } from 'react';
 
 import Button from '../../atoms/button/button';
 import AttributeFrame from '../../molecules/attribute-frame/attribute-frame';
@@ -18,7 +18,7 @@ import { createPriceRecord } from '../../../helpers/helpers';
 type OwnProps = {
 	product: Product;
 	currency: Currency;
-	cleanDescriprion: { __html: string };
+	cleanDescriprion: string;
 	activeImg: string;
 	onAddToCart: () => void;
 	onSelectAttr: (attr: SelectedAttr) => void;
@@ -26,6 +26,8 @@ type OwnProps = {
 };
 
 class ProductDPView extends Component<OwnProps> {
+	ref: React.RefObject<HTMLDivElement> = 
+		React.createRef<HTMLDivElement>();
 
 	componentDidMount = (): void => {
 		if (this.props.product) {
@@ -49,7 +51,6 @@ class ProductDPView extends Component<OwnProps> {
 		let price = 'No price';
 		let gallerySet: JSX.Element[] = [];
 		let attributesSet: JSX.Element[] = [];
-
 		if (prices && currency) {
 			price = createPriceRecord(prices, currency);
 		}
@@ -79,7 +80,8 @@ class ProductDPView extends Component<OwnProps> {
 				);
 			});
 		}
-
+		if (this.ref.current)	this.ref.current.innerHTML=cleanDescriprion;
+		
 		return (
 			<div className={styles.containerPDP}>
 				<div className={styles.gallery}>
@@ -112,8 +114,8 @@ class ProductDPView extends Component<OwnProps> {
 							ADD TO CART
 						</Button>
 						<div 
+							ref={this.ref} 
 							className={styles.description} 
-							dangerouslySetInnerHTML={cleanDescriprion}
 						>
 						</div>
 					</div>

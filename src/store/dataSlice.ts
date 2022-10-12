@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import * as ApiServices from '../sevices/api-services';
-import { statusSetCurrency } from './statusSlice';
 import { 
 	Product, 
 	Currency, 

@@ -50,8 +50,6 @@ export const statusSlice = createSlice({
 			state.currencyIsShow = action.payload; 
 		},
 		statusSetCurrency: (state, action: PayloadAction<Currency>) => {
-			console.log ('in slise flyed');
-			console.log (action.payload);
 			state.currency = action.payload; 
 		},
 		statusSetCartPageShow: (state, action: PayloadAction<boolean>) => { 

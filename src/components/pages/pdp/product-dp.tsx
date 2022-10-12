@@ -12,7 +12,7 @@ import {
 	addProductToCart, 
 	updateProductInCart, 
 	addToCartThunk } from '../../../store/cartSlice';
-import { CleanHtml, SelectedAttr } from '../../../types/data.types';
+import { SelectedAttr } from '../../../types/data.types';
 import { toCleanDescription } from '../../../helpers/helpers';
 
 const mapState = (state: RootState) => ({
@@ -66,7 +66,7 @@ class ProductDP extends Component<Props, State> {
 
 	render(): JSX.Element {
 		const { statusFetchingProduct, thisProduct, currency } = this.props;
-		let cleanHtml: CleanHtml = { __html: '' };
+		let cleanHtml = '';
 		if (thisProduct && thisProduct.description) {
 			cleanHtml = toCleanDescription(thisProduct.description);}
 		return (

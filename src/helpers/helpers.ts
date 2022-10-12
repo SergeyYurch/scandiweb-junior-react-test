@@ -31,9 +31,6 @@ export const createPriceRecord = (
 };
 
 
-export const toCleanDescription = (description: string): CleanHtml => {
-	const cleanDescriprion = (
-		dompurify.sanitize(description, { FORCE_BODY: true })
-		);
-	return ({ __html: cleanDescriprion });
+export const toCleanDescription = (description: string): string => {
+	return dompurify.sanitize(description, { FORCE_BODY: true });
 };

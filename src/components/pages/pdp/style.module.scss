@@ -47,8 +47,11 @@
 		}
 
 		.productDetails {
-			display: grid;
-			grid-template-columns: 1fr;
+			height: 100%;
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+
 
 			.name {
 				margin-bottom: 43px;
@@ -71,10 +74,12 @@
 			.addToCartBtn {
 				width: 292px;
 				height: 52px;
+				min-height: 52px;
 				margin-bottom: 40px;
 			}
 
 			.description {
+				overflow: auto;
 				font-family: 'Roboto-Regular';
 				font-style: normal;
 				font-weight: 400;

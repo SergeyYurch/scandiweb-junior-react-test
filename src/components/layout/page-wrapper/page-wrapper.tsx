@@ -58,9 +58,7 @@ class PageWrapper extends Component<Props, RootState> {
 	};
 
 	closeCart = (): void => {
-		console.log('Close Cart');
 		if (this.props.cartPageIsShow){
-			
 			this.props.statusSetCartPageShow(false);
 		}
 	};

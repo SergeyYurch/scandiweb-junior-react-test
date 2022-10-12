@@ -48,6 +48,7 @@ class Cart extends Component<Props> {
 	componentDidUpdate = (): void => {
 		if (this.props.cartState.quantity === 0) {
 			this.props.statusSetCartShow(false);
+			this.props.statusSetCartPageShow(false);
 		}
 	};
 
@@ -71,14 +72,15 @@ class Cart extends Component<Props> {
 	};
 
 	onViewBag = (): void => {
-		this.props.statusSetCartView(false);
+		this.props.statusSetCartShow(false);
+		//this.props.statusSetCartView(true);
 		this.props.statusSetCartPageShow(true);
 	};
 
 	onCloseCart = (): void => {
 		this.props.statusSetCartShow(false);
 		this.props.statusSetCartPageShow(false);
-		this.props.statusSetCartView(true);
+		//this.props.statusSetCartView(true);
 	};
 
 	onCheckOut = (): void => {
