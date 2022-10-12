@@ -64,9 +64,8 @@ export const getProduct
 export const getCurrencies 
 	= createAsyncThunk<Currencies, undefined, {rejectValue:string}>(
 	'data/getCurrencies',
-	async (_, {rejectWithValue, dispatch} ) => {
+	async (_, {rejectWithValue} ) => {
 		try{ const data:Currencies = await ApiServices.getCurrencies();
-			dispatch(statusSetCurrency(data.currencies[0]));
 			return data;
 		}catch {
 			return rejectWithValue('Error loading currencies');

@@ -41,6 +41,7 @@ class CurrencyModal extends Component<Props, State> {
 	}
 
 	setCurrency = (curr: Currency): void => {
+		localStorage.setItem('currency', JSON.stringify(curr)); 
 		this.props.statusSetCurrency(curr);
 		this.props.statusSetCurrencyIsShow(false);
 	};

@@ -34,7 +34,18 @@ class ActionMenu extends Component<PropsFromRedux, RootState> {
 			&& 
 			this.props.currencies
 		) {
-			const currency = this.props.currencies[0];
+			const currencyFromLocalStorage = localStorage.getItem('currency');
+			console.log('didMount');
+			if (currencyFromLocalStorage) console.log('currencyFromLocalStorage is');
+			
+			const currency = currencyFromLocalStorage 
+			? JSON.parse(currencyFromLocalStorage)
+			: this.props.currencies[0];
+
+			console.log('====================================');
+			console.log('Залетает в this.props.statusSetCurrency(currency);');
+			console.log(currency);
+			console.log('====================================');
 			this.props.statusSetCurrency(currency);
 		}
 	}
